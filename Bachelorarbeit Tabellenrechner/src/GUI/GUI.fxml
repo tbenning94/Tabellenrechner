@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar fx:id="oben" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="menueDatei" mnemonicParsing="false" text="Auswahl">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#aktuelleTabelle" text="Aktuelle Tabelle" />
+                  <MenuItem mnemonicParsing="false" onAction="#uebersichtSpieltage" text="Übersicht Spieltage" />
+                  <MenuItem mnemonicParsing="false" onAction="#graphenansicht" text="Graphenansicht" />
+              <MenuItem mnemonicParsing="false" onAction="#zurStartseite" text="Zurück zur Startseite" />
+            </items>
+          </Menu>
+          <Menu fx:id="menueMinMax" mnemonicParsing="false" text="Zeitmessung">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#berechneMaximumMinimumAlleTeams" text="Berechne Maximum und Minimun" />
+                  <MenuItem mnemonicParsing="false" onAction="#stoppeAktuelleMessung" text="Stoppe Aktuelle Messung" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Hilfe">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#ueberDieProjektarbeit" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#hilfeAktuelleSeite" text="Hilfe zur aktuellen Seite" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Pane fx:id="mitte" BorderPane.alignment="CENTER_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+         </padding>
+      </Pane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER">
+         <children>
+            <Label fx:id="labelAktuell" />
+            <ProgressBar fx:id="progressBar" prefWidth="500.0" progress="0.0" BorderPane.alignment="CENTER" />
+            <Label fx:id="labelText" />
+            <Label fx:id="labelZeit" prefWidth="250.0" />
+            <Label fx:id="labelArt" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

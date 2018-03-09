@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="644.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="labelSpieltag" contentDisplay="CENTER" layoutX="118.0" prefHeight="30.0" prefWidth="250.0" text="Tabelle nach Spieltag X">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tabelle" layoutY="30.0" prefHeight="475.0" prefWidth="485.0">
+        <columns>
+            <TableColumn fx:id="colPlatz" prefWidth="50.0" text="Platz" />
+          <TableColumn fx:id="colTeam" prefWidth="130.0" text="Team" />
+          <TableColumn fx:id="colPunkte" prefWidth="46.0" text="Punke" />
+            <TableColumn fx:id="colDifferenz" prefWidth="75.0" text="Differenz" />
+            <TableColumn fx:id="colSiege" prefWidth="49.0" text="Siege" />
+            <TableColumn fx:id="colUnent" prefWidth="66.0" text="Unent." />
+            <TableColumn fx:id="colNiederlage" prefWidth="68.0" text="Niederlage" />
+        </columns>
+      </TableView>
+      <FlowPane fx:id="vBoxLegende" layoutY="519.0" prefHeight="111.0" prefWidth="485.0" />
+   </children>
+</AnchorPane>

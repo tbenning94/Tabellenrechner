@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="480.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tabelle" layoutY="43.0" onMouseClicked="#onMouseClicked" prefHeight="477.0" prefWidth="225.0">
+        <columns>
+          <TableColumn fx:id="colPlatz" prefWidth="50.0" text="Platz" />
+          <TableColumn fx:id="colTeam" prefWidth="174.0" resizable="false" text="Team" />
+        </columns>
+      </TableView>
+      <LineChart fx:id="lineChart" layoutX="225.0" prefHeight="520.0" prefWidth="525.0" title="Graphenansicht">
+        <xAxis>
+          <NumberAxis autoRanging="false" label="Spieltag" lowerBound="1.0" minorTickCount="1" side="BOTTOM" tickLabelGap="1.0" tickLabelRotation="30.0" tickLength="5.0" tickUnit="1.0" upperBound="34.0" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" autoRanging="false" label="Platz" lowerBound="-18.0" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="1.0" tickLabelRotation="-45.0" tickLength="1.0" tickUnit="1.0" upperBound="-1.0" />
+        </yAxis>
+      </LineChart>
+      <Pane fx:id="paneTipps" layoutX="750.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+         <children>
+            <Label fx:id="teamName" layoutX="63.0" layoutY="6.0" text="Ergebnisse (Tippen):">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Separator layoutY="33.0" prefWidth="300.0" />
+            <Label fx:id="labelSpieltag" layoutX="14.0" layoutY="46.0" text="Spiele am Tag 33:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Pane fx:id="paneSpiele" layoutX="41.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0" />
+            <Button layoutX="150.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonZurueck" prefWidth="65.0" text="Zurück" />
+            <Button layoutX="228.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonVor" prefWidth="65.0" text="Vor" />
+            <Button layoutX="109.0" layoutY="450.0" mnemonicParsing="false" onAction="#buttonTippen" prefWidth="65.0" text="Tippen" />
+            <Button layoutX="209.0" layoutY="450.0" mnemonicParsing="false" onAction="#buttonReset" prefWidth="65.0" text="Reset" />
+         </children>
+      </Pane>
+      <Button fx:id="buttonZurueck" layoutX="104.0" layoutY="13.0" mnemonicParsing="false" onAction="#zurueck" text="Zurück" />
+      <Button fx:id="buttonVor" layoutX="171.0" layoutY="13.0" mnemonicParsing="false" onAction="#vor" prefHeight="25.0" prefWidth="53.0" text="Vor" />
+      <Label fx:id="labelGruppe" layoutY="15.0" text="Gruppe: A">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceBoxMIN" layoutX="125.0" layoutY="528.0" prefHeight="25.0" prefWidth="100.0" />
+      <ChoiceBox fx:id="choiceBoxMAX" layoutY="528.0" prefHeight="25.0" prefWidth="100.0" />
+   </children>
+</AnchorPane>

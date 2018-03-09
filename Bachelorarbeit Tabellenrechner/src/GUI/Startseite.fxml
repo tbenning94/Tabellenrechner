@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" text="Sport bzw. Liga auswählen" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <ListView fx:id="sportarten" prefHeight="200.0" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Saison:">
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="saison" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Spieltag:">
+                     <padding>
+                        <Insets right="14.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox fx:id="spieltag" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#auswaehlen" text="Auswählen" textAlignment="CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#erstelleLiga" text="Erstelle Liga" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonBearbeiten" mnemonicParsing="false" onAction="#bearbeiteLiga" text="Bearbeite Liga" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
