@@ -44,7 +44,5 @@
             <Button layoutX="209.0" layoutY="450.0" mnemonicParsing="false" onAction="#buttonReset" prefWidth="65.0" text="Reset" />
          </children>
       </Pane>
-      <ChoiceBox fx:id="choiceBoxMAX" layoutY="481.0" prefHeight="25.0" prefWidth="100.0" />
-      <ChoiceBox fx:id="choiceBoxMIN" layoutX="125.0" layoutY="481.0" prefHeight="25.0" prefWidth="100.0" />
    </children>
 </AnchorPane>

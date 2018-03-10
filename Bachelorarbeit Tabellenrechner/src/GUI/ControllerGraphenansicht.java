@@ -66,8 +66,7 @@ public class ControllerGraphenansicht implements Beobachter {
 	private Pane paneSpiele;
 	@FXML
 	public Button buttonZ,buttonV;
-	@FXML
-	public ChoiceBox<String> choiceBoxMAX,choiceBoxMIN;
+
 
 	/**
 	 * Konstruktor
@@ -119,51 +118,7 @@ public class ControllerGraphenansicht implements Beobachter {
 		ControllerGUI.aktiveSeite=ControllerGUI.seiteGraphenansicht;
 		setColumnsStyle();
 		setColumnsValue(k.getAktiveLiga().getTeams());
-		
-		ObservableList<String> max = FXCollections.observableArrayList("MAX", "MAX_MIN");
-		choiceBoxMAX.setItems(max);
-		choiceBoxMAX.getSelectionModel().select(0);
-		BranchAndBound.auswahlMax=0;
-		ObservableList<String> min = FXCollections.observableArrayList("MIN", "MIN_MAX");
-		choiceBoxMIN.setItems(min);
-		choiceBoxMIN.getSelectionModel().select(0);
-		BranchAndBound.auswahlMin=0;
-		choiceBoxMAX.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() 
-		{
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(choiceBoxMAX.getSelectionModel().getSelectedIndex()==0)
-				{
-					BranchAndBound.auswahlMax=0;
-					buttonTippen();
-				}else{
-					if(choiceBoxMAX.getSelectionModel().getSelectedIndex()==1)
-					{
-						BranchAndBound.auswahlMax=1;
-						buttonTippen();
-					}
-				}
-			}
-		});
-		choiceBoxMIN.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() 
-		{
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(choiceBoxMIN.getSelectionModel().getSelectedIndex()==0)
-				{
-					BranchAndBound.auswahlMin=0;
-					buttonTippen();
-				}else{
-					if(choiceBoxMIN.getSelectionModel().getSelectedIndex()==1)
-					{
-						BranchAndBound.auswahlMin=1;
-						buttonTippen();
-					}
-				}
-			}
-		});
-		
-		
+
 		k.getAlgorithmus().addBeobachter(this);
 		tabelle.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // erlaubt
 																				// mehrfachauswahl
@@ -644,17 +599,11 @@ public class ControllerGraphenansicht implements Beobachter {
 	private void erstelleLinie(Team t) {
 		XYChart.Series seriesMax = new XYChart.Series();
 		XYChart.Series seriesMin = new XYChart.Series();
-		if(choiceBoxMAX.getSelectionModel().getSelectedIndex()==0)
-		{
-			seriesMax.setName(t.getName() + " MAX Naiv("+berechneNaivenWertMAX(t)+")");
-		}else{
-			seriesMax.setName(t.getName() + " MAX_MIN");
-		}
-		if(choiceBoxMIN.getSelectionModel().getSelectedIndex()==0){
-			seriesMin.setName(t.getName() + " MIN Naiv("+berechneNaivenWertMIN(t)+")");
-		}else{
-			seriesMin.setName(t.getName() + " MIN_MAX");
-		}
+
+		seriesMax.setName(t.getName() + " MAX Naiv("+berechneNaivenWertMAX(t)+")");
+
+		seriesMin.setName(t.getName() + " MIN Naiv("+berechneNaivenWertMIN(t)+")");
+
 		
 
 		// "Durchlaufe" alle Teams

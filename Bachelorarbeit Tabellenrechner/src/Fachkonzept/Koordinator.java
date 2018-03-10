@@ -132,7 +132,6 @@ public class Koordinator {
 		new Zaehlweise(liga.getSportart().getZaehlweise());
 		this.liga=liga;
 		this.aktiveGruppenLiga=liga;
-		System.out.println("hier2---------------------------: "+liga.getAustragungsart().getGespieltBisTag());
 		if(this.liga.getAustragungsart() instanceof Meisterschaft)
 		{
 			liga.getAustragungsart().setComparatorChain(liga.getAustragungsart().getComparatorNr());
@@ -179,7 +178,8 @@ public class Koordinator {
 	private void erstelleTeams() throws IOException {
 
 		Sportart sportart=liga.getSportart();
-		daten = new DatenzugriffJSON(sportart.getURL(), sportart.getLokalURL()+k.getLiga().getLiga()+"/");
+		String lokalURL = sportart.getLokalURL()+k.getLiga().getLiga()+"/";
+		daten = new DatenzugriffJSON(sportart.getURL(), lokalURL);
 
 
 		liga.addTeams(daten.ermittelTeams(liga.getJahr()));
@@ -199,17 +199,9 @@ public class Koordinator {
 
 		for(int i=1; i<=((Gruppenphase) liga.getAustragungsart()).getAnzahlGruppen();i++)
 		{
-			//TODO zurück ändern
 			Liga tmp=null;
-			if(i==1&&liga.getJahr()==2008)
-			{
-				tmp=new Liga(liga.getLiga(),liga.getJahr(),liga.getSportart(),new Meisterschaft(3,liga.getAustragungsart().getComparatorNr()));
-			}else{
-				tmp=new Liga(liga.getLiga(),liga.getJahr(),liga.getSportart(),new Meisterschaft(liga.getAustragungsart().getGespieltBisTag(),liga.getAustragungsart().getComparatorNr()));
-			}
+			tmp=new Liga(liga.getLiga(),liga.getJahr(),liga.getSportart(),new Meisterschaft(liga.getAustragungsart().getGespieltBisTag(),liga.getAustragungsart().getComparatorNr()));
 			
-			//2.Liga tmp=new Liga(liga.getLiga(),liga.getJahr(),liga.getSportart(),new Gruppenphase(6));
-			//1.Liga tmp=new Liga(liga.getLiga(),liga.getJahr(),liga.getSportart(),liga.getAustragungsart());
 			switch(i){
 				case 1: gruppe="A"; break;
 				case 2: gruppe="B"; break;

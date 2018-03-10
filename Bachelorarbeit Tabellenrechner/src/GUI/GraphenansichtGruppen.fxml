@@ -51,7 +51,5 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choiceBoxMIN" layoutX="125.0" layoutY="528.0" prefHeight="25.0" prefWidth="100.0" />
-      <ChoiceBox fx:id="choiceBoxMAX" layoutY="528.0" prefHeight="25.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
