@@ -38,8 +38,6 @@ public class ControllerStartseite{
 	public ListView<String> sportarten;
 	@FXML
 	public ChoiceBox<Integer> saison,spieltag;
-	@FXML
-	public Button buttonBearbeiten;
 	
 	public static LinkedList<Liga> eigeneLigen=new LinkedList<Liga>();
 	private Koordinator k=Koordinator.getKoordinator();
@@ -58,7 +56,6 @@ public class ControllerStartseite{
 	@FXML
 	public void initialize() {
 		ControllerGUI.aktiveSeite=ControllerGUI.seiteStartseite;
-		buttonBearbeiten.setDisable(true);
 		sportarten.setOnKeyPressed(onKeyPressedEventHandler);
 		
 		sport = FXCollections.observableArrayList("1. Fuﬂballbundesliga","1. Handballbundesliga");
@@ -82,7 +79,6 @@ public class ControllerStartseite{
 				if(newValue.equals("1. Fuﬂballbundesliga"))
 				{
 					spieltag.setDisable(false);
-					buttonBearbeiten.setDisable(true);
 					jahr= FXCollections.observableArrayList(2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016);
 					tag= FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34);
 					saison.setItems(jahr);
@@ -93,7 +89,6 @@ public class ControllerStartseite{
 				} else{
 				if(newValue.equals("1. Handballbundesliga")){
 					spieltag.setDisable(false);
-					buttonBearbeiten.setDisable(true);
 					jahr= FXCollections.observableArrayList(2011,2012,2013);
 					tag= FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34);
 					saison.setItems(jahr);
@@ -105,7 +100,6 @@ public class ControllerStartseite{
 					{
 						if(newValue.equals(eigeneLigen.get(i).getLiga()))
 						{
-							buttonBearbeiten.setDisable(false);
 							if(eigeneLigen.get(i).getAustragungsart() instanceof Meisterschaft)
 							{
 								spieltag.setDisable(false);
@@ -420,46 +414,6 @@ public class ControllerStartseite{
 		p.setTranslateX(225);
 
 		k.getMitte().getChildren().add(p);
-	}
-	
-	@FXML
-	private void erstelleLiga()
-	{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LigaErstellen.fxml"));
-		fxmlLoader.setController(new ControllerLigaErstellen(cGUI));
-		Pane p = null;
-		try {
-			p = fxmlLoader.load();
-		} catch (IOException ex) {
-			System.out.println("Fehler beim Laden der LigaErstellen.fxml");
-			ex.printStackTrace();
-		}
-		cGUI.entferneVorherigenInhalt();
-		k.getMitte().getChildren().add(p);
-	}
-	
-	@FXML
-	private void bearbeiteLiga()
-	{
-		
-		for(int i=0; i<eigeneLigen.size();i++)
-		{
-			if(eigeneLigen.get(i).getLiga().equals(sportarten.getSelectionModel().getSelectedItem()))
-			{
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LigaErstellen.fxml"));
-				fxmlLoader.setController(new ControllerLigaErstellen(cGUI,eigeneLigen.get(i)));
-				Pane p = null;
-				try {
-					p = fxmlLoader.load();
-				} catch (IOException ex) {
-					System.out.println("Fehler beim Laden der LigaErstellen.fxml");
-					ex.printStackTrace();
-				}
-				cGUI.entferneVorherigenInhalt();
-				k.getMitte().getChildren().add(p);
-			}
-		}
-		
 	}
 	
 	
