@@ -13,7 +13,6 @@ public class Team implements Serializable
 	private static final long serialVersionUID = 1L;
 	private final String name;
 	private int punkte;
-	private int ggPunkte;
 	private int tore;
 	private int ggtore;//gegentore
 	private int differenz;//zwischen tore und ggtore
@@ -49,7 +48,6 @@ public class Team implements Serializable
 	{
 		this.name=t.getName();
 		this.punkte=t.getPunkte();
-		this.ggPunkte=t.getGgPunkte();
 		this.tore=t.getTore();
 		this.ggtore=t.getGgtore();
 		this.siege=t.getSiege();
@@ -97,10 +95,6 @@ public class Team implements Serializable
 		return punkte;
 	}
 	
-	public int getGgPunkte()
-	{
-		return ggPunkte;
-	}
 
 	/**
 	 * 
@@ -119,12 +113,7 @@ public class Team implements Serializable
 		setToreSpieltag(tore);
 		setDifferenz();
 	}
-	public String getPunkte_ggPunkte()
-	{
-		String x=""+punkte+":"+ggPunkte;
-		return x;
-		
-	}
+
 	public String getPunkteS()
 	{
 		String x=""+punkte;
@@ -177,7 +166,6 @@ public class Team implements Serializable
 	public void sieg() {
 		this.siege++;
 		punkte+=Zaehlweise.PUNKTE_S;
-		ggPunkte+=ZaehlweisemitMinuspunkte.PUNKTE_S_MINUS;
 	}
 
 	/**
@@ -194,7 +182,6 @@ public class Team implements Serializable
 	public void unentschieden() {
 		this.unentschieden++;
 		punkte+=Zaehlweise.PUNKTE_U;
-		ggPunkte+=ZaehlweisemitMinuspunkte.PUNKTE_U_MINUS;
 	}
 
 	/**
@@ -212,7 +199,6 @@ public class Team implements Serializable
 	public void niederlage() {
 		this.niederlagen++;
 		punkte+=Zaehlweise.PUNKTE_N;
-		ggPunkte+=ZaehlweisemitMinuspunkte.PUNKTE_N_MINUS;
 	}
 	
 	/**

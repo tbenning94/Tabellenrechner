@@ -7,7 +7,6 @@ import java.util.List;
 
 import Fachkonzept.Koordinator;
 import Fachkonzept.Team;
-import Fachkonzept.ZaehlweisemitMinuspunkte;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -281,12 +280,7 @@ public class ControllerTabelle {
 		}
 		colPlatz.setCellValueFactory(new PropertyValueFactory<Team, Integer>("platzierung"));
 		colTeam.setCellValueFactory(new PropertyValueFactory<Team, String>("name"));
-		if(k.getAktiveLiga().getSportart().getZaehlweise() instanceof ZaehlweisemitMinuspunkte)
-		{
-			colPunkte.setCellValueFactory(new PropertyValueFactory<Team, String>("punkte_ggPunkte"));
-		}else{
-			colPunkte.setCellValueFactory(new PropertyValueFactory<Team, String>("punkteS"));
-		}	
+		colPunkte.setCellValueFactory(new PropertyValueFactory<Team, String>("punkteS"));	
 		colDifferenz.setCellValueFactory(new PropertyValueFactory<Team, Integer>("differenz"));
 		colSiege.setCellValueFactory(new PropertyValueFactory<Team, Integer>("siege"));
 		colUnent.setCellValueFactory(new PropertyValueFactory<Team, Integer>("unentschieden"));

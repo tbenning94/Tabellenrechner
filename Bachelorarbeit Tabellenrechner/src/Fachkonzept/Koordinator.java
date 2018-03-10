@@ -118,10 +118,6 @@ public class Koordinator {
 			this.liga = new Liga("Fuﬂball", saison, new Fuﬂball(), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
 			this.aktiveGruppenLiga=liga;
 			break;
-		case "handball":
-			this.liga=new Liga("Handball",saison, new Handball(),new Meisterschaft(bisSpieltag, ComparatorChain.CC_HANDBALL_MEISTERSCHAFT));
-			this.aktiveGruppenLiga=liga;
-			break;
 		}
 		
 		if(this.liga!=null)
