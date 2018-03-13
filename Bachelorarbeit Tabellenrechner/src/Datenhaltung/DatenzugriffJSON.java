@@ -70,22 +70,26 @@ public class DatenzugriffJSON {
 				String tmpURL = this.url +""+saison +  "/" + 1 ;
 				url = new URL(tmpURL);
 				is = url.openStream();
-				System.out.println("Daten erfolgreich heruntergeladen!");
 			} catch (IOException e1) {
 				throw e1;
 			}
 		}
-		JsonParser parser = Json.createParser(is);
-		while (parser.hasNext()) {			
-			Event e = parser.next();		
-			if (e == Event.KEY_NAME) {
-				if (parser.getString().equals("TeamName")) {					
-					parser.next();
-					teamnamen.add(parser.getString());
+		try{
+			JsonParser parser = Json.createParser(is);
+			System.out.println("Daten erfolgreich heruntergeladen!");
+			while (parser.hasNext()) {			
+				Event e = parser.next();		
+				if (e == Event.KEY_NAME) {
+					if (parser.getString().equals("TeamName")) {					
+						parser.next();
+						teamnamen.add(parser.getString());
+					}
 				}
 			}
+			return teamnamen;		
+		}catch(Exception e){
+			throw e;
 		}
-		return teamnamen;
 	}
 	
 	/**
@@ -250,7 +254,7 @@ public class DatenzugriffJSON {
 		int aktuellerSpieltag=0;
 		URL url = null;
 		InputStream is = null;
-		String tmp = "http://www.openligadb.de/api/getcurrentgroup/"+shortcut; 
+		String tmp = "https://www.openligadb.de/api/getcurrentgroup/"+shortcut; 
 		try {
 			url = new URL(tmp);
 			is = url.openStream();

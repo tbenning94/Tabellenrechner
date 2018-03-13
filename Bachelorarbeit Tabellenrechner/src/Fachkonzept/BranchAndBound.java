@@ -242,7 +242,6 @@ public class BranchAndBound implements Informant {
 					durchlauf++;
 					updateProgress(++a, anzahlUebrigerSpieltage * 2);
 				}
-				System.out.println("Anzahl: " + hallo);
 				liga.ermittelPlatzierung(liga.getTeams(), Liga.SORTIERUNG_NORMAL, null);
 				long ende = System.currentTimeMillis() - anfang; // dauer des
 																	// algorithmus
