@@ -38,7 +38,6 @@ public class ControllerStartseite{
 	@FXML
 	public ChoiceBox<Integer> saison,spieltag;
 	
-	public static LinkedList<Liga> eigeneLigen=new LinkedList<Liga>();
 	private Koordinator k=Koordinator.getKoordinator();
 	private ControllerGUI cGUI;
 	private ObservableList<Integer> tag;
@@ -242,16 +241,7 @@ public class ControllerStartseite{
     						(int) saison.getSelectionModel().getSelectedItem(),
     						(int) spieltag.getSelectionModel().getSelectedItem());
     			}
-    		}else{
-    			for(int i=0; i<eigeneLigen.size();i++)
-    			{
-    				if(eigeneLigen.get(i).getLiga().equals(sportarten.getSelectionModel().getSelectedItem()))
-    				{
-    	    			k.setLiga(eigeneLigen.get(i));
-    				}
-    			}
     		}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 			error=true;
@@ -343,14 +333,7 @@ public class ControllerStartseite{
 						{
 							return;
 						}
-						for(int i=0; i<eigeneLigen.size();i++)
-						{
-							if(eigeneLigen.get(i).getLiga().equals(sportarten.getSelectionModel().getSelectedItem())){
-								eigeneLigen.remove(i);
-								break;
-							}
-						}
-						eigeneSportartenSpeichern();
+						
 						sportarten.getItems().remove(sportarten.getSelectionModel().getSelectedItem());	
 					} else {
 					   return;
@@ -360,41 +343,4 @@ public class ControllerStartseite{
 			}
 		}	
 	};
-	
-	public static void eigeneSportartenSpeichern()
-	{
-		OutputStream fos = null;
-		try
-		{
-		  fos = new FileOutputStream(fileEigeneSporarten);
-		  @SuppressWarnings("resource")
-		ObjectOutputStream o = new ObjectOutputStream( fos );
-		  o.writeObject(eigeneLigen);
-		  System.out.println("eigene Ligen speichern");
-		  for(int i=0; i<eigeneLigen.size(); i++)
-		  {
-			  System.out.println(eigeneLigen.get(i).getLiga()+"   "+eigeneLigen.get(i).getAustragungsart().getGespieltBisTag());
-		  }
-		}
-		catch ( IOException e ) { System.err.println( e ); }
-		finally { try { fos.close(); } catch ( Exception e ) { e.printStackTrace(); } }
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static void eigeneSporartenLaden()
-	{
-		InputStream fis = null;
-
-		try
-		{
-		  fis = new FileInputStream(fileEigeneSporarten);
-
-		  @SuppressWarnings("resource")
-		ObjectInputStream o = new ObjectInputStream( fis );
-		  eigeneLigen = (LinkedList<Liga>) o.readObject();
-		}
-		catch ( IOException e ) { System.err.println( e ); }
-		catch ( ClassNotFoundException e ) { System.err.println( e ); }
-		finally { try { fis.close(); } catch ( Exception e ) { } }
-	}
 }
