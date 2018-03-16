@@ -69,14 +69,28 @@ public class resultValidationOfBnB {
 	Integer[] hannoverMin={-18,-18,-18,-18,-18};
 	
 	Koordinator k;
+	
 	@Test
-	public void test() throws IOException {
+	public void testBnBOhneInitLoesung() throws IOException{
+		bnb(false);
+	}
+	
+	@Test
+	public void testBnBMitInitLoesung() throws IOException{
+		bnb(true);
+	}
+	
+	public void bnb(boolean mitInitLoesung) throws IOException {
 		k=Koordinator.getKoordinator();
 		
 		for(int i=0; i<=4; i++){
 			k.setLiga("1. Fußballbundesliga", 2015, 29+i);
 			for(Team team:k.getAktiveLiga().getTeams()){
-				k.getAlgorithmus().test(team);
+				if(mitInitLoesung){
+					k.getAlgorithmus().testMitInitLoesung(team);					
+				}else{
+					k.getAlgorithmus().testOhneInitLoesung(team);
+				}
 				
 				switch(team.getName()){
 				case "Bayern München":proof(i,team,bayernMuenchenMax,bayernMuenchenMin);

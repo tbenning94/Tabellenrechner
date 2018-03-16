@@ -232,11 +232,11 @@ public class BranchAndBound implements Informant {
 					kk++;
 
 
-					berechneMAX(tag);
+					berechneMAX(tag,false);
 					
 					updateProgress(++a, anzahlUebrigerSpieltage * 2);
 
-					berechneMIN(tag);
+					berechneMIN(tag,false);
 					
 
 					durchlauf++;
@@ -335,11 +335,20 @@ public class BranchAndBound implements Informant {
 		}
 	}
 	
-	public void test(Team t){
+	public void testOhneInitLoesung(Team t){
 		initialisiereAlgorithmus(t);
 		for (int tag = anzahlUebrigerSpieltage - 1; tag >= 0; tag--) {
-			berechneMAX(tag);
-			berechneMIN(tag);			
+			berechneMAX(tag,true);
+			berechneMIN(tag,true);			
+			durchlauf++;
+		}
+	}
+	
+	public void testMitInitLoesung(Team t){
+		initialisiereAlgorithmus(t);
+		for (int tag = anzahlUebrigerSpieltage - 1; tag >= 0; tag--) {
+			berechneMAX(tag,false);
+			berechneMIN(tag,false);			
 			durchlauf++;
 		}
 	}
@@ -378,7 +387,7 @@ public class BranchAndBound implements Informant {
 		}
 	}
 
-	private void berechneMAX(int tag)
+	private void berechneMAX(int tag,boolean test)
 	  {
 	    this.MAX = true;
 	    this.liga.ermittelPlatzierung(this.k.getAktiveLiga().getTeams(), 2, this.team);
@@ -411,7 +420,9 @@ public class BranchAndBound implements Informant {
 	    }
 	    erzeugeMengenTabelleMAX(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 	    erzeugeMengenMAX(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
-	    erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
+	    if(!test){
+	    	erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
+	    }
 	    if (this.max == this.maxTP)
 	    {
 	      this.abcdef2 += 1;
@@ -465,7 +476,7 @@ public class BranchAndBound implements Informant {
 	    this.team.setMaxPlatzSpieltag(this.max);
 	  }
 	  
-	  private void berechneMIN(int tag)
+	  private void berechneMIN(int tag,boolean test)
 	  {
 	    this.MAX = false;
 	    this.liga.ermittelPlatzierung(this.k.getAktiveLiga().getTeams(), 3, this.team);
@@ -502,7 +513,9 @@ public class BranchAndBound implements Informant {
 	    tmpAusstehendeNamenHeim = this.test1;
 	    tmpAusstehendeNamenAusw = this.test2;
 	    
-	    erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
+	    if(!test){
+	    	erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);	    	
+	    }
 	    if (this.min == this.minTP)
 	    {
 	      this.abcdef += 1;
@@ -526,7 +539,9 @@ public class BranchAndBound implements Informant {
 	    int altMaxTP = this.maxTP;
 	    int altMinPZ = this.minPZ;
 	    int altMaxPZ = this.maxPZ;
-	    erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(this.k.getAktiveLiga().getTeams(), tag);
+	    if(!test){
+	    	erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(this.k.getAktiveLiga().getTeams(), tag);	    	
+	    }
 	    if (altMin < this.min) {
 	      this.nMin += 1;
 	    }
