@@ -251,7 +251,9 @@ public class BranchAndBound implements Informant {
 
 		// der Ladebalken wird mit dem Task "verbunden"
 		ProgressBar bar = Koordinator.getKoordinator().getProgressBar();
-		bar.progressProperty().bind(task.progressProperty());
+		if(bar!=null){
+			bar.progressProperty().bind(task.progressProperty());			
+		}
 
 		// wenn der Task fertig abgearbeitet ist
 		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
@@ -330,6 +332,15 @@ public class BranchAndBound implements Informant {
 		} else {
 			// ansonsten wird das Team in die WarteListe aufgenommen
 			warteListe.addFirst(t);
+		}
+	}
+	
+	public void test(Team t){
+		initialisiereAlgorithmus(t);
+		for (int tag = anzahlUebrigerSpieltage - 1; tag >= 0; tag--) {
+			berechneMAX(tag);
+			berechneMIN(tag);			
+			durchlauf++;
 		}
 	}
 

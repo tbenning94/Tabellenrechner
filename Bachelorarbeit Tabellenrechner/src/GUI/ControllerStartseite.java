@@ -254,11 +254,6 @@ public class ControllerStartseite{
 		}
         if(!error) 
         {
-            
-            /*if((int) spieltag.getSelectionModel().getSelectedItem()>=31)
-            {
-            	cGUI.berechneMaximumMinimumAlleTeams();
-            }*/
     		for(int i=k.getMitte().getChildren().size();i>0;i--)
     		{
     			k.getMitte().getChildren().remove(i-1);
