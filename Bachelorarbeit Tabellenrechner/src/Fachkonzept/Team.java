@@ -20,10 +20,7 @@ public class Team implements Serializable
 	private int unentschieden;
 	private int niederlagen;
 	private int platzierung;
-	private int maxPlatz, minPlatz;
 
-
-	//private Team[] maxPlatzTabelle, minPlatzTabelle;
 	private LinkedList<Integer> maxPlatzSpieltag= new LinkedList<Integer>();//Die Maximalen Plätze die noch erreicht werden können
 	private LinkedList<Integer> minPlatzSpieltag=new LinkedList<Integer>();//Die Minimalen Plätze die noch erreicht werden können
 	private LinkedList<Integer> toreSpieltag= new LinkedList<Integer>();//Tore an Spieltag x
@@ -55,9 +52,6 @@ public class Team implements Serializable
 		this.unentschieden=t.getUnentschieden();
 		this.toreSpieltag=t.getToreSpieltag();
 		this.ggtoreSpieltag=t.getGgtoreSpieltag();
-
-		this.maxPlatz=t.getMaxPlatz();
-		this.minPlatz=t.getMinPlatz();
 		this.maxPlatzSpieltag=t.getMaxPlatzSpieltag();
 		this.minPlatzSpieltag=t.getMinPlatzSpieltag();
 	}
@@ -77,12 +71,6 @@ public class Team implements Serializable
 	public void setPlatzierung(int platzierung)
 	{
 		this.platzierung=platzierung;
-		//wenn es noch keinen max/min platz gibt, ist die aktuelle platzierung dieser platz
-		if(maxPlatz==0&&minPlatz==0)
-		{
-			maxPlatz=platzierung;
-			minPlatz=platzierung;
-		}
 	}
 	
 
@@ -237,43 +225,7 @@ public class Team implements Serializable
 		}
 
 	}
-	
-	/**
-	 * 
-	 * @param maxPlatz setzt den maximalen Platz
-	 */
-	public void setMaxPlatz(int maxPlatz)
-	{
-		this.maxPlatz=maxPlatz;
-	}
-	
-	/**
-	 * 
-	 * @return liefert den maximalen Platz zurück
-	 */
-	public int getMaxPlatz()
-	{
-		return this.maxPlatz;
-	}
-	
-	/**
-	 * 
-	 * @param minPlatz setzt den MinPlatz
-	 */
-	public void setMinPlatz(int minPlatz)
-	{
-		this.minPlatz=minPlatz;
-	}
-	
-	/**
-	 * 
-	 * @return liefert den Minimalen Platz zurück
-	 */
-	public int getMinPlatz()
-	{
-		return this.minPlatz;
-	}
-	
+
 	/**
 	 * Nur für das Kopieren nötig
 	 * @return Die liste welche die Tore an Spieltag x enthält
