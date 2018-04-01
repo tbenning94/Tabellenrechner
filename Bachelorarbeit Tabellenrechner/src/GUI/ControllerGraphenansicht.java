@@ -9,6 +9,7 @@ import Fachkonzept.BranchAndBound;
 import Fachkonzept.Koordinator;
 import Fachkonzept.Team;
 import Fachkonzept.Zaehlweise;
+import Fachkonzept.Algorithmus;
 import Fachkonzept.Beobachter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -142,7 +143,7 @@ public class ControllerGraphenansicht implements Beobachter {
 		for (int i = 0; i < tipps.length; i++) {
 			tipps[i] = -1;
 		}
-		BranchAndBound.setTipps(tipps);
+		Algorithmus.setTipps(tipps);
 	}
 
 	private void setColumnsStyle()
@@ -364,7 +365,7 @@ public class ControllerGraphenansicht implements Beobachter {
 			tipps[i] = -1;
 		}
 
-		BranchAndBound.setTipps(tipps);
+		Algorithmus.setTipps(tipps);
 
 		// es werden die alten werte in der grafik angezeigt
 		if (!ausgewaehlt.isEmpty()) {
@@ -388,7 +389,7 @@ public class ControllerGraphenansicht implements Beobachter {
 	private void buttonTippen() {
 		getippt=true;
 		tippsErstellen();
-		BranchAndBound.setTipps(tipps);
+		Algorithmus.setTipps(tipps);
 		if (!ausgewaehlt.isEmpty()) {
 			for (int i = ausgewaehlt.size() * 2 - 1; i >= 0; i--) {
 				lineChart.getData().remove(i);

@@ -49,19 +49,19 @@ public class resultValidationOfBnB {
 	Integer[] darmstadtMax={-4,-5,-5,-8,-8,-10};
 	Integer[] darmstadtMin={-18,-18,-17,-17,-17,-15};
 	
-	Integer[] hoffenheimMax={-5,-5,-5,-8,-8,-10};
+	Integer[] hoffenheimMax={-4,-5,-5,-8,-8,-10}; //TODO erster wert ist in der Arbeit und im damaligen Program -5?
 	Integer[] hoffenheimMin={-18,-18,-17,-17,-17,-15};
 	
 	Integer[] frankfurtMax={-5,-8,-8,-11,-11,-11};
 	Integer[] frankfurtMin={-18,-18,-18,-18,-17,-17};
 	
-	Integer[] bremenMax={-5,-8,-8,-8,-9,-12};
+	Integer[] bremenMax={-5,-8,-8,-8,-9,-12}; 
 	Integer[] bremenMin={-18,-18,-18,-18,-17,-17};
 	
 	Integer[] stuttgartMax={-3,-4,-5,-8,-11,-16};
 	Integer[] stuttgartMin={-18,-18,-18,-17,-17,-17};
 	
-	Integer[] hannoverMax={-10,-12,-15,-17,-18,-18}; //TODO ersten wert überprüfen
+	Integer[] hannoverMax={-10,-12,-15,-17,-18,-18}; 
 	Integer[] hannoverMin={-18,-18,-18,-18,-18,-18};
 	
 	Koordinator k;
@@ -89,7 +89,6 @@ public class resultValidationOfBnB {
 				}else{
 					k.getAlgorithmus().testOhneInitLoesung(team);
 				}
-				
 				switch(team.getName()){
 				case "Bayern München":proof(i,team,bayernMuenchenMax,bayernMuenchenMin);
 				break;
@@ -130,7 +129,6 @@ public class resultValidationOfBnB {
 				default: fail("Team "+team.getName()+" not found");
 				}
 			}
-			Koordinator.setKoordinatorToNull();
 		}
 		//fail("Not yet implemented");
 	} 

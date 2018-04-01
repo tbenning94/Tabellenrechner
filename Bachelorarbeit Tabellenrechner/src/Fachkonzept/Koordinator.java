@@ -38,6 +38,10 @@ public class Koordinator {
 		return k;
 	}
 	
+	public static void setKoordinatorToNull(){
+		k=null;
+	}
+	
 	/**
 	 * Konstruktor
 	 */
@@ -182,7 +186,7 @@ public class Koordinator {
 	private void erstelleTeams() throws IOException {
 
 		Sportart sportart=liga.getSportart();
-		String lokalURL = sportart.getLokalURL()+k.getLiga().getLiga()+"/";
+		String lokalURL = sportart.getLokalURL()+this.liga.getLiga()+"/";
 		daten = new DatenzugriffJSON(sportart.getURL(), lokalURL);
 
 
