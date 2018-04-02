@@ -57,12 +57,11 @@ public class AlgorithmusMax extends Algorithmus {
 			if (this.maxTP < this.max) {
 				this.max = this.maxTP;
 			}
-		} 
-		else if (this.maxTP >= this.max) {
+		} else if (this.maxTP < this.max) {
 			System.out.println("Starten der Rekursion MAX");
+			erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 			int merkeMaxTP = this.maxTP;
 			int merkeMinTP = this.minTP;
-			erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 			backtracking(1, 1, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
 			this.maxTP = merkeMaxTP;
 			this.minTP = merkeMinTP;
