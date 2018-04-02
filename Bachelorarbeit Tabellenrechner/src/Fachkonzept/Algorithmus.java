@@ -3,6 +3,7 @@ package Fachkonzept;
 import java.util.ArrayList;
 
 public abstract class Algorithmus {
+	public static int errorCounter=0;
 	public static int SIEG=1;
 	public static int UNENTSCHIEDEN=2;
 	public static int NIEDERLAGE=3;
@@ -30,6 +31,7 @@ public abstract class Algorithmus {
 	protected ArrayList<Team> merke; //eine aneinanderreihung der mannschaften die noch gegeneinander spielen müssen
 	protected ArrayList<Integer> merkeSpielausgang;
 	protected ArrayList<Team> merkeGegner;
+	
 	protected ArrayList<Team> ausstehendeNamenHeim;
 	protected ArrayList<Team> ausstehendeNamenAusw;
 	protected ArrayList<Integer> moeglichkeiten; // Hier werden die möglichkeiten
@@ -64,10 +66,9 @@ public abstract class Algorithmus {
 	abstract void erstelleInitialeLoesungAlle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2);
 	abstract boolean moeglichkeitGefunden(int offenerSpieltagIndex, int teamIndex); 
 	abstract void pruefeSchrankeWennGetippt(int offenerSpieltagIndex, int teamIndex);
-	abstract void erstelleWerte(Team[] tmpTeam, int anzahlUebrigerTage);
+	abstract void setzeMinMaxTP(Team[] tmpTeam);
 	abstract void erzeugeMengenTabelle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2);
 	abstract void erzeugeMengen(Team[] tmpTeam, ArrayList<Team> l1, ArrayList<Team> l2);
-	abstract int verbessereNaiv(ArrayList<Team> l1, ArrayList<Team> l2);
 	
 	
 	//Für das BnB-Verfahren
@@ -81,14 +82,17 @@ public abstract class Algorithmus {
 		init=new InitialeLoesung(liga, this.team);
 	}
 
-	protected Team[] erstelleInitialeTabelle(boolean isMaxCalculation) {
+	protected Team[] erstelleInitialeTabelle() {
 		Team[] tmpTeam = null;
 		int index2 = 0;
 
 		tmpTeam = new Team[this.liga.getTeams().length];
+		
 		for (int i = 0; i < this.liga.getTeams().length; i++) {
 			tmpTeam[i] = new Team(this.liga.getTeams()[i]);
 		}
+		
+		//Die Möglichkeiten werden gesetzt
 		for (int j = 0; j < this.moeglichkeiten.size(); j++) {
 			int index = 0;
 			if ((j % this.liga.getTeams().length == 0) && (j != 0)) {
@@ -110,11 +114,7 @@ public abstract class Algorithmus {
 				tmpTeam[index].niederlage();
 			}
 		}
-		if (isMaxCalculation) {
-			this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
-		} else {
-			this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MIN, this.team);
-		}
+		//tmpTeam sollte nach der rückgabe sortiert werden
 		return tmpTeam;
 	}
 	
@@ -286,6 +286,29 @@ public abstract class Algorithmus {
 			}
 
 		}
+		protected void aktuallisiereTeamsInMengen(Team[] t) {
+			for (int i = this.O.size() - 1; i >= 0; i--) {
+				for (int j = 0; j < t.length; j++) {
+					if (((Team) this.O.get(i)).getName().equals(t[j].getName())) {
+						this.O.set(i, t[j]);
+					}
+				}
+			}
+			for (int i = this.U.size() - 1; i >= 0; i--) {
+				for (int j = 0; j < t.length; j++) {
+					if (((Team) this.U.get(i)).getName().equals(t[j].getName())) {
+						this.U.set(i, t[j]);
+					}
+				}
+			}
+			for (int i = this.M.size() - 1; i >= 0; i--) {
+				for (int j = 0; j < t.length; j++) {
+					if (((Team) this.M.get(i)).getName().equals(t[j].getName())) {
+						this.M.set(i, t[j]);
+					}
+				}
+			}
+		}
 		
 		private Team[] copyVorherigeTabelle(Team[] vorherigeTabelle){
 			Team[] tmpVorherigeTabelle = new Team[vorherigeTabelle.length];
@@ -320,15 +343,15 @@ public abstract class Algorithmus {
 		}
 		
 		private void setMoeglichkeit(int aktuelleMoeglichkeit,ArrayList<Team> tmpAusstehendeSpieleHeim,ArrayList<Team> tmpAusstehendeSpieleAusw){
-			if (aktuelleMoeglichkeit == 1) {
+			if (aktuelleMoeglichkeit == SIEG) {
 				((Team) tmpAusstehendeSpieleHeim.get(0)).sieg();
 				((Team) tmpAusstehendeSpieleAusw.get(0)).niederlage();
 			}
-			if (aktuelleMoeglichkeit == 2) {
+			if (aktuelleMoeglichkeit == UNENTSCHIEDEN) {
 				((Team) tmpAusstehendeSpieleHeim.get(0)).unentschieden();
 				((Team) tmpAusstehendeSpieleAusw.get(0)).unentschieden();
 			}
-			if (aktuelleMoeglichkeit == 3) {
+			if (aktuelleMoeglichkeit == NIEDERLAGE) {
 				((Team) tmpAusstehendeSpieleHeim.get(0)).niederlage();
 				((Team) tmpAusstehendeSpieleAusw.get(0)).sieg();
 			}
@@ -351,6 +374,7 @@ public abstract class Algorithmus {
 
 				} else {
 					System.out.println("ERROR ERROR ERROR ERROR ERROR");
+					errorCounter++;
 				}
 			}
 		}

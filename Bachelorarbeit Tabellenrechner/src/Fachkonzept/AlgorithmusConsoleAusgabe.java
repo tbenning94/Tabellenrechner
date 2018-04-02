@@ -147,7 +147,7 @@ public class AlgorithmusConsoleAusgabe extends Algorithmus{
 	}
 
 	@Override
-	void erstelleWerte(Team[] tmpTeam, int anzahlUebrigerTage) {
+	void setzeMinMaxTP(Team[] tmpTeam, int anzahlUebrigerTage) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -165,7 +165,7 @@ public class AlgorithmusConsoleAusgabe extends Algorithmus{
 	}
 
 	@Override
-	int verbessereNaiv(ArrayList<Team> l1, ArrayList<Team> l2) {
+	int ermittelVerbessertenMaxTP_VarianteA(ArrayList<Team> l1, ArrayList<Team> l2) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

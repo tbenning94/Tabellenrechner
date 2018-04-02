@@ -19,9 +19,10 @@ public class AlgorithmusMax extends Algorithmus {
 		pruefeSchranke(durchlauf);
 		erzeugeInitialeMengen(this.k.getAktiveLiga().getTeams());
 
-		Team[] tmpTabelle = erstelleInitialeTabelle(true);
+		Team[] tmpTabelle = erstelleInitialeTabelle();
 
-		erstelleWerte(this.k.getAktiveLiga().getTeams(), tag + 1);
+		//TODO überprüfen welche tabelle hier rein kann
+		setzeMinMaxTP(this.k.getAktiveLiga().getTeams());
 
 		ArrayList<Team> tmpAusstehendeNamenHeim = new ArrayList<Team>();
 		for (int i = 0; i < this.ausstehendeNamenHeim.size(); i++) {
@@ -31,44 +32,37 @@ public class AlgorithmusMax extends Algorithmus {
 		for (int i = 0; i < this.ausstehendeNamenAusw.size(); i++) {
 			tmpAusstehendeNamenAusw.add((Team) this.ausstehendeNamenAusw.get(i));
 		}
-		if (this.maxTP == this.minTP) {
-			this.abc2 += 1;
-			this.team.setMaxPlatzSpieltag(this.maxTP);
-			return;
-		}
+		
+
 		erzeugeMengenTabelle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
-		erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
+		
 		if (!test) {
 			erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 		}
+		//Wenn eine Initiallösung den besten TP gefunden hat, kann abgebrochen werden
 		if (this.max == this.maxTP) {
-			this.abcdef2 += 1;
 			this.team.setMaxPlatzSpieltag(this.max);
 			return;
 		}
-		int tmpMaxTP = verbessereSchrankeMAX(tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
-		if (tmpMaxTP == this.max) {
-			this.abcdef2 += 1;
 
-			this.team.setMaxPlatzSpieltag(this.max);
-			return;
-		}
-		erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
+		//überprüfen ob maxTP überhaupt erreicht werden kann
+		int tmpMaxTP = ermittelVerbessertenMaxTP(tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 		if (tmpMaxTP == this.max) {
-			this.abcdef2 += 1;
-
 			this.team.setMaxPlatzSpieltag(this.max);
 			return;
 		}
+
+		//Wenn es keine weiteren Spiele mehr gibt, wurde eine Lösung gefunden
 		if (this.maxTP == this.minTP) {
 			if (this.maxTP < this.max) {
 				this.max = this.maxTP;
 			}
-		} else if (this.maxTP < this.max) {
+		} 
+		else if (this.maxTP >= this.max) {
 			System.out.println("Starten der Rekursion MAX");
-			erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 			int merkeMaxTP = this.maxTP;
 			int merkeMinTP = this.minTP;
+			erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 			backtracking(1, 1, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
 			this.maxTP = merkeMaxTP;
 			this.minTP = merkeMinTP;
@@ -79,8 +73,6 @@ public class AlgorithmusMax extends Algorithmus {
 			erzeugeMengen(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 			backtracking(3, 1, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
 		}
-		this.rek2 += 1;
-
 		this.team.setMaxPlatzSpieltag(this.max);
 	}
 
@@ -98,6 +90,24 @@ public class AlgorithmusMax extends Algorithmus {
 				} else {
 					this.M.add(tmpTeam[i]);
 				}
+			}
+		}
+	}
+	
+	@Override
+	protected void erzeugeMengen(Team[] tmpTeam, ArrayList<Team> l1, ArrayList<Team> l2) {
+		this.O = new ArrayList<Team>();
+		this.M = new ArrayList<Team>();
+		this.U = new ArrayList<Team>();
+		int anzahlSpiele = 0;
+		for (int i = 0; i < tmpTeam.length; i++) {
+			anzahlSpiele = ausstehendeAnzahlVonSpielen(tmpTeam[i], l1, l2);
+			if (tmpTeam[i].getPunkte() > this.maxPZ) {
+				this.O.add(tmpTeam[i]);
+			} else if (tmpTeam[i].getPunkte() <= this.maxPZ - Zaehlweise.PUNKTE_S * anzahlSpiele) {
+				this.U.add(tmpTeam[i]);
+			} else {
+				this.M.add(tmpTeam[i]);
 			}
 		}
 	}
@@ -156,7 +166,7 @@ public class AlgorithmusMax extends Algorithmus {
 				this.minPZ -= Zaehlweise.PUNKTE_S;
 			}
 		} else 
-			//Wenn die aktive Mannschaft die Ausw�rstmannschaft ist
+			//Wenn die aktive Mannschaft die Auswärstmannschaft ist
 			if (this.ausstehendCpy[x][(i + 1)].getName().equals(this.team.getName())) {
 			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == NIEDERLAGE) {
 				this.maxPZ -= Zaehlweise.PUNKTE_S;
@@ -172,7 +182,7 @@ public class AlgorithmusMax extends Algorithmus {
 		int ergebnisAusw=(Integer) tipps.get(i + 1 + x * this.anzahlTeams);
 		setzeMoeglichkeiten(ergebnisHeim, ergebnisAusw);
 		
-		//die grenzen �ndern sich sobald sich die punktzahl der aktiven Mannschaft ver�ndert
+		//die grenzen ändern sich sobald sich die punktzahl der aktiven Mannschaft verändert
 		this.unterGrenze = this.minPZ;
 		this.oberGrenze = this.maxPZ;
 	}
@@ -180,7 +190,7 @@ public class AlgorithmusMax extends Algorithmus {
 
 
 	@Override
-	protected void erstelleWerte(Team[] tmpTeam, int anzahlUebrigerTage) {
+	protected void setzeMinMaxTP(Team[] tmpTeam) {
 		this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
 		this.minTP = this.team.getPlatzierung();
 		this.maxTP = 1;
@@ -195,27 +205,7 @@ public class AlgorithmusMax extends Algorithmus {
 	@Override
 	protected void erzeugeMengenTabelle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2) {
 		int anzahlSpiele = 0;
-		for (int i = this.O.size() - 1; i >= 0; i--) {
-			for (int j = 0; j < t.length; j++) {
-				if (((Team) this.O.get(i)).getName().equals(t[j].getName())) {
-					this.O.set(i, t[j]);
-				}
-			}
-		}
-		for (int i = this.U.size() - 1; i >= 0; i--) {
-			for (int j = 0; j < t.length; j++) {
-				if (((Team) this.U.get(i)).getName().equals(t[j].getName())) {
-					this.U.set(i, t[j]);
-				}
-			}
-		}
-		for (int i = this.M.size() - 1; i >= 0; i--) {
-			for (int j = 0; j < t.length; j++) {
-				if (((Team) this.M.get(i)).getName().equals(t[j].getName())) {
-					this.M.set(i, t[j]);
-				}
-			}
-		}
+		aktuallisiereTeamsInMengen(t);
 		for (int i = this.M.size() - 1; i >= 0; i--) {
 			anzahlSpiele = ausstehendeAnzahlVonSpielen((Team) this.M.get(i), l1, l2);
 			if (((Team) this.M.get(i)).getPunkte() > this.maxPZ) {
@@ -237,7 +227,6 @@ public class AlgorithmusMax extends Algorithmus {
 								}
 							}
 							((Team) this.M.get(i)).sieg();
-
 							l1.remove(j);
 							l2.remove(j);
 						}
@@ -283,26 +272,18 @@ public class AlgorithmusMax extends Algorithmus {
 		}
 	}
 
-	@Override
-	protected void erzeugeMengen(Team[] tmpTeam, ArrayList<Team> l1, ArrayList<Team> l2) {
-		this.O = new ArrayList<Team>();
-		this.M = new ArrayList<Team>();
-		this.U = new ArrayList<Team>();
-		int anzahlSpiele = 0;
-		for (int i = 0; i < tmpTeam.length; i++) {
-			anzahlSpiele = ausstehendeAnzahlVonSpielen(tmpTeam[i], l1, l2);
-			if (tmpTeam[i].getPunkte() > this.maxPZ) {
-				this.O.add(tmpTeam[i]);
-			} else if (tmpTeam[i].getPunkte() <= this.maxPZ - Zaehlweise.PUNKTE_S * anzahlSpiele) {
-				this.U.add(tmpTeam[i]);
-			} else {
-				this.M.add(tmpTeam[i]);
-			}
-		}
-	}
 
-	@Override
-	protected int verbessereNaiv(ArrayList<Team> l1, ArrayList<Team> l2) {
+
+/**
+ * Bei der Variante A zur Verbesserung der Schranken geht es darum, eine Spielpaarung zu finden, welche garantiert, 
+ * dass mindestens eine Mannschaft mehr (bei maxTP) oder weniger (bei minTP) Punkte bekommt, als die aktuelle Mannschaft. 
+ * Zuerst werden dafür temporäre Schranken tmpMaxTP und tmpMinTP erstellt, welche den Wert von maxTP bzw. minTP bekommen. 
+ * Sobald dann eine der Bedingungen aus Tabelle 3 zutrifft, wird tmpMaxTP inkrementiert oder tmpMinTP dekrementiert. Dabei ist zu 
+ * beachten, dass wenn einmal eine Bedingung für eine Mannschaft zutraf, diese Mannschaft danach nicht weiter betrachtet wird.
+ * 
+ * Tabellenrechner zur Vorhersage von Tabellenplätzen im Sport, S.15
+ */
+	protected int ermittelVerbessertenMaxTP_VarianteA(ArrayList<Team> l1, ArrayList<Team> l2) {
 		int tmpMaxTP = this.maxTP;
 		ArrayList<String> raus = new ArrayList<String>();
 		for (int i = 0; i < l1.size(); i++) {
@@ -325,7 +306,21 @@ public class AlgorithmusMax extends Algorithmus {
 		return tmpMaxTP;
 	}
 
-	private int verbessereSchrankeMAXVarianteB(ArrayList<Team> l1, ArrayList<Team> l2) {
+	/**
+	 * In der Variante B wird berechnet, wie viele Punkte eine Mannschaft aus M maximal noch holen dürfen, damit keiner die 
+	 * ausgewählte Mannschaft überholt. Die Mannschaften aus M bekommen mindestens die 
+	 * Anzahl der noch offenen Spiele * 2 (wegen Unentschieden) Punkte: 𝑚𝑖𝑛𝑃=|𝑜𝑓𝑓𝑒𝑛𝑒𝑆𝑝𝑖𝑒𝑙𝑒|∙2 
+	 * Dann wird für jede Mannschaft m die Differenz seiner Punkte P(m) und der maximalen Punkte der 
+	 * aktuellen Mannschaft maxPZ berechnet und aufsummiert. |M| ist dabei die Anzahl der Mannschaften 
+	 * in der Menge M. 𝑆=Σ𝑚𝑎𝑥𝑃𝑍−𝑃(𝑚)     𝑚=1 
+	 * Zum Schluss wird dann geprüft, ob diese Summe (S) kleiner ist als die Punktzahl (minP). 
+	 * Wenn dies der Fall ist, dann muss mindestens eine Mannschaft aus M die aktuelle Mannschaft 
+	 * übertreffen und die temporäre Schranke tmpMaxTP würde somit inkrementiert werden. 
+	 * 𝑆<𝑚𝑖𝑛𝑃 ⟹𝑡𝑚𝑝𝑀𝑎𝑥𝑇𝑃++
+	 * 
+	 * Tabellenrechner zur Vorhersage von Tabellenplätzen im Sport, S.16
+	 */
+	private int ermittelVerbessertenMaxTP_VarianteB(ArrayList<Team> l1, ArrayList<Team> l2) {
 		int punkte = l1.size() * 2;
 
 		int summe = 0;
@@ -338,9 +333,9 @@ public class AlgorithmusMax extends Algorithmus {
 		return this.maxTP;
 	}
 
-	private int verbessereSchrankeMAX(ArrayList<Team> l1, ArrayList<Team> l2) {
-		int a = verbessereNaiv(l1, l2);
-		int b = verbessereSchrankeMAXVarianteB(l1, l2);
+	private int ermittelVerbessertenMaxTP(ArrayList<Team> l1, ArrayList<Team> l2) {
+		int a = ermittelVerbessertenMaxTP_VarianteA(l1, l2);
+		int b = ermittelVerbessertenMaxTP_VarianteB(l1, l2);
 
 		int tmp = Math.max(this.maxTP, a);
 		tmp = Math.max(tmp, b);

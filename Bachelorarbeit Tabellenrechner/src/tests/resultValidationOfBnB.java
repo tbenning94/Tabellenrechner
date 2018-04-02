@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import org.junit.Test;
+
+import Fachkonzept.Algorithmus;
 import Fachkonzept.Koordinator;
 import Fachkonzept.Team;
 
@@ -131,6 +133,10 @@ public class resultValidationOfBnB {
 			}
 		}
 		//fail("Not yet implemented");
+		if(Algorithmus.errorCounter==60||Algorithmus.errorCounter==102){
+		}else{
+			fail("erroCounter is not stable "+Algorithmus.errorCounter);			
+		}
 	} 
 	
 	private void proof(int i,Team team,Object[] max,Object[] min){
