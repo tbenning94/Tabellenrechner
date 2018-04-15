@@ -2,7 +2,6 @@ package Fachkonzept;
 
 public class Gruppenphase extends Austragungsart
 {
-	private static final long serialVersionUID = 1L;
 	private final int anzahlGruppen;
 	private final Liga[] gruppen;
 	

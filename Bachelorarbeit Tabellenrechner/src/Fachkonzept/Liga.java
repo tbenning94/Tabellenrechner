@@ -12,7 +12,7 @@ public class Liga implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private final int jahr;			//das jahr(saison) in dem gespielt wird
 	private final String liga;
-	private final Sportart sportart;
+	private final ISportart sportart;
 	private final Austragungsart austragungsart;
 	private int anzahlGespielt;
 	private int anzahlAusstehend;
@@ -24,7 +24,7 @@ public class Liga implements Serializable{
 	public static final int SORTIERUNG_MAX = 2;
 	public static final int SORTIERUNG_MIN = 3;
 	
-	public Liga(String liga, int jahr, Sportart sportart, Austragungsart austragungsart)
+	public Liga(String liga, int jahr, ISportart sportart, Austragungsart austragungsart)
 	{
 		this.alleSpielPaarungen=new LinkedList<Team>();
 		this.liga=liga;
@@ -45,7 +45,7 @@ public class Liga implements Serializable{
 		return liga;
 	}
 
-	public Sportart getSportart() {
+	public ISportart getSportart() {
 		return sportart;
 	}
 

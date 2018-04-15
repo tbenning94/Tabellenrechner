@@ -2,10 +2,13 @@ package Fachkonzept;
 
 public class Fuﬂball extends SportartImplementierung{
 
-	private static final long serialVersionUID = 1L;
 
-	public Fuﬂball(int ligaNr) {
-		super(new Zaehlweise(3, 1, 0), "https://www.openligadb.de/api/getmatchdata/bl"+ligaNr+"/");
+	public Fuﬂball(String ligaID) {
+		this("https://www.openligadb.de/api/getmatchdata/",ligaID);
+	}
+	
+	public Fuﬂball(String url,String ligaID) {
+		super(new Zaehlweise(3, 1, 0), url+ligaID+"/");
 	}
 
 }

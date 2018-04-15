@@ -1,11 +1,9 @@
 package Fachkonzept;
 
-public abstract class SportartImplementierung implements Sportart{
+public abstract class SportartImplementierung implements ISportart{
 
-	private static final long serialVersionUID = 1L;
 	private final Zaehlweise zaehlweise;
 	private final String url;
-	private String lokalUrl;
 	
 	public SportartImplementierung(Zaehlweise zaehlweise,String url)
 	{
@@ -19,11 +17,5 @@ public abstract class SportartImplementierung implements Sportart{
 
 	public String getURL() {
 		return this.url;
-	}
-
-	public String getLokalURL() {
-		String path=System.getProperty("user.dir")+"/"+"src/Ergebnisse/";
-		lokalUrl="file:///"+path;
-		return this.lokalUrl;
 	}
 }

@@ -10,7 +10,7 @@ import Fachkonzept.Koordinator;
 import Fachkonzept.Team;
 import Fachkonzept.Zaehlweise;
 import Fachkonzept.Algorithmus;
-import Fachkonzept.Beobachter;
+import Fachkonzept.IBeobachter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -38,7 +38,7 @@ import javafx.scene.text.Font;
  * @author T.Benning
  *
  */
-public class ControllerGraphenansicht implements Beobachter {
+public class ControllerGraphenansicht implements IBeobachter {
 	protected final Koordinator k = Koordinator.getKoordinator();
 	private int spieltag;
 	private int anzahlTeams;

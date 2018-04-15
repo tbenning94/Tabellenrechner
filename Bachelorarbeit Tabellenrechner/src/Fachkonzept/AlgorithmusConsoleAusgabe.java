@@ -2,10 +2,8 @@ package Fachkonzept;
 
 import java.util.ArrayList;
 
-public class AlgorithmusConsoleAusgabe extends Algorithmus{
-	public AlgorithmusConsoleAusgabe(Team team) {
-		super(team);
-	}
+public class AlgorithmusConsoleAusgabe {
+
 
 	private void ausgabeWerte(int max,int min) {
 		System.out.println("Erstellte Werte: ");
@@ -134,65 +132,5 @@ public class AlgorithmusConsoleAusgabe extends Algorithmus{
 	    System.out.println("verbesserut hat x mal geholhen: " + this.nMin);
 	  }
 
-	@Override
-	void erzeugeInitialeMengen(Team[] tmpTeam) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void erstelleInitialeLoesungAlle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void setzeMinMaxTP(Team[] tmpTeam, int anzahlUebrigerTage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void erzeugeMengenTabelle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void erzeugeMengen(Team[] tmpTeam, ArrayList<Team> l1, ArrayList<Team> l2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	int ermittelVerbessertenMaxTP_VarianteA(ArrayList<Team> l1, ArrayList<Team> l2) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	boolean pruefeAbbruchbedingung1() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	boolean pruefeAbbruchbedingung2() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	void pruefeSchranke(int durchlauf) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	void setzeNeueMengenForBnB(Team[] tmpVorherigeTabelle, ArrayList<Team> tmpAusstehendeSpieleHeim,
-			ArrayList<Team> tmpAusstehendeSpieleAusw) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

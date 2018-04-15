@@ -12,7 +12,7 @@ public interface Informant {
 	 * 
 	 * @param beobachter der Beobachter der hinzugefügt werden soll
 	 */
-	public void addBeobachter(Beobachter beobachter);
+	public void addBeobachter(IBeobachter beobachter);
 	/**
 	 * @param team alle Beobachter informieren
 	 */
@@ -22,5 +22,5 @@ public interface Informant {
 	 * 
 	 * @param beobachter entfernt den Beobachter aus der liste
 	 */
-	public void removeBeobachter(Beobachter beobachter);
+	public void removeBeobachter(IBeobachter beobachter);
 }

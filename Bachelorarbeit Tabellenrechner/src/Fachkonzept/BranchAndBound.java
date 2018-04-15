@@ -45,7 +45,7 @@ public class BranchAndBound implements Informant {
 
 	
 
-	private ArrayList<Beobachter> beobachterListe = new ArrayList<Beobachter>(); // eine
+	private ArrayList<IBeobachter> beobachterListe = new ArrayList<IBeobachter>(); // eine
 																					// Liste
 																					// die
 																					// alle
@@ -191,7 +191,7 @@ public class BranchAndBound implements Informant {
 					t.setMaxPlatzSpieltag(-100);
 					t.setMinPlatzSpieltag(-100);
 				}
-				for (Beobachter b : beobachterListe) {
+				for (IBeobachter b : beobachterListe) {
 					b.updateCancelled(t);
 				}
 			}
@@ -200,7 +200,7 @@ public class BranchAndBound implements Informant {
 		// Wenn noch keine Berechnung durchgeführt wird, dann..
 		if (!inBearbeitung) {
 			inBearbeitung = true;
-			for (Beobachter b : beobachterListe) {
+			for (IBeobachter b : beobachterListe) {
 				b.updateAnfang(t);
 			}
 			// .. Ein Thread wird erstellt der den Task abarbeitet
@@ -262,7 +262,7 @@ public class BranchAndBound implements Informant {
 	 *            fügt den Beobachter in die beobachterListe hinzu
 	 */
 	@Override
-	public void addBeobachter(Beobachter beobachter) {
+	public void addBeobachter(IBeobachter beobachter) {
 		this.beobachterListe.add(beobachter);
 
 	}
@@ -273,13 +273,13 @@ public class BranchAndBound implements Informant {
 	 */
 	@Override
 	public void notifyAlleBeobachter(Team team) {
-		for (Beobachter b : beobachterListe) {
+		for (IBeobachter b : beobachterListe) {
 			b.update(team);
 		}
 	}
 
 	@Override
-	public void removeBeobachter(Beobachter beobachter) {
+	public void removeBeobachter(IBeobachter beobachter) {
 		beobachterListe.remove(beobachter);
 	}
 

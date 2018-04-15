@@ -17,7 +17,7 @@ public class AlgorithmusMin extends Algorithmus {
 		super(team);
 	}
 
-	public void berechneMIN(int tag, boolean test,int durchlauf) {
+	public void berechneMIN(int tag, boolean test, int durchlauf) {
 
 		this.liga.ermittelPlatzierung(this.k.getAktiveLiga().getTeams(), Liga.SORTIERUNG_MIN, this.team);
 		this.min = this.team.getPlatzierung();
@@ -39,7 +39,6 @@ public class AlgorithmusMin extends Algorithmus {
 		for (int i = 0; i < this.ausstehendeNamenAusw.size(); i++) {
 			tmpAusstehendeNamenAusw.add((Team) this.ausstehendeNamenAusw.get(i));
 		}
-		
 
 		erzeugeMengenTabelle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 
@@ -50,34 +49,24 @@ public class AlgorithmusMin extends Algorithmus {
 		if (!test) {
 			erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 		}
-		//Wenn eine Initiallösung den besten TP gefunden hat, kann abgebrochen werden
+		// Wenn eine Initiallösung den besten TP gefunden hat, kann abgebrochen
+		// werden
 		if (this.min == this.minTP) {
 			this.team.setMinPlatzSpieltag(this.min);
 			return;
 		}
-		
-		//überprüfen ob minTP überhaupt erreicht werden kann
+
+		// überprüfen ob minTP überhaupt erreicht werden kann
 		this.tmpMinTP = ermittelVerbessertenMinTP(tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
 		if (this.tmpMinTP == this.min) {
 			this.team.setMinPlatzSpieltag(this.min);
 			return;
 		}
-		
-		int altMin = this.min;
-		int altMinTP = this.minTP;
-		int altMaxTP = this.maxTP;
-		int altMinPZ = this.minPZ;
-		if (!test) {
-			erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(this.k.getAktiveLiga().getTeams(), tag,durchlauf);
-		}
-		if (this.nachbesserung != null) {
-			this.nachbesserung.clear();
-		}
-		this.minTP = altMinTP;
-		this.maxTP = altMaxTP;
-		this.minPZ = altMinPZ;
 
-		this.min = Math.max(altMin, this.min);
+		if (!test) {
+			nachbesserung(tag, durchlauf);
+		}
+
 		if (this.tmpMinTP == this.min) {
 			this.team.setMinPlatzSpieltag(this.min);
 			return;
@@ -112,6 +101,22 @@ public class AlgorithmusMin extends Algorithmus {
 		this.team.setMinPlatzSpieltag(this.min);
 	}
 
+	private void nachbesserung(int tag, int durchlauf) {
+		int altMin = this.min;
+		int altMinTP = this.minTP;
+		int altMaxTP = this.maxTP;
+		int altMinPZ = this.minPZ;
+		erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(this.k.getAktiveLiga().getTeams(), tag, durchlauf);
+		if (this.nachbesserung != null) {
+			this.nachbesserung.clear();
+		}
+		this.minTP = altMinTP;
+		this.maxTP = altMaxTP;
+		this.minPZ = altMinPZ;
+
+		this.min = Math.max(altMin, this.min);
+	}
+
 	@Override
 	protected void erzeugeInitialeMengen(Team[] tmpTeam) {
 		this.O = new ArrayList<Team>();
@@ -131,8 +136,8 @@ public class AlgorithmusMin extends Algorithmus {
 	}
 
 	@Override
-	protected boolean moeglichkeitGefunden(int x, int i){
-		boolean moeglichkeitGefunden=true;
+	protected boolean moeglichkeitGefunden(int x, int i) {
+		boolean moeglichkeitGefunden = true;
 		if (this.ausstehendCpy[x][i].getName().equals(this.team.getName())) {
 			setzeMoeglichkeiten(NIEDERLAGE, SIEG);
 		} else if (this.ausstehendCpy[x][(i + 1)].getName().equals(this.team.getName())) {
@@ -143,12 +148,12 @@ public class AlgorithmusMin extends Algorithmus {
 		} else if ((this.ausstehendCpy[x][(i + 1)].getPunkte() >= this.oberGrenze)
 				|| (this.ausstehendCpy[x][(i + 1)].getPunkte() < this.unterGrenze)) {
 			setzeMoeglichkeiten(SIEG, NIEDERLAGE);
-		}else{
-			moeglichkeitGefunden=false;
+		} else {
+			moeglichkeitGefunden = false;
 		}
 		return moeglichkeitGefunden;
 	}
-	
+
 	@Override
 	protected void pruefeSchrankeWennGetippt(int x, int i) {
 		if (this.ausstehendCpy[x][i].getName().equals(this.team.getName())) {
@@ -170,17 +175,18 @@ public class AlgorithmusMin extends Algorithmus {
 				this.maxPZ += Zaehlweise.PUNKTE_U;
 			}
 		}
-		//Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt
-		int ergebnisHeim=(Integer) tipps.get(i + x * this.anzahlTeams);
-		int ergebnisAusw=(Integer) tipps.get(i + 1 + x * this.anzahlTeams);
+		// Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt
+		int ergebnisHeim = (Integer) tipps.get(i + x * this.anzahlTeams);
+		int ergebnisAusw = (Integer) tipps.get(i + 1 + x * this.anzahlTeams);
 		setzeMoeglichkeiten(ergebnisHeim, ergebnisAusw);
-		
-		//die grenzen ändern sich sobald sich die punktzahl der aktiven Mannschaft verändert
+
+		// die grenzen ändern sich sobald sich die punktzahl der aktiven
+		// Mannschaft verändert
 		this.unterGrenze = this.minPZ;
 		this.oberGrenze = this.maxPZ;
 	}
 
-	private void erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(Team[] t, int tag,int durchlauf) {
+	private void erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(Team[] t, int tag, int durchlauf) {
 		int durchgang = 0;
 		int tmpMin = 0;
 		if (this.nachbesserung == null) {
@@ -371,13 +377,16 @@ public class AlgorithmusMin extends Algorithmus {
 		}
 	}
 
-
 	/**
-	 * Bei der Variante A zur Verbesserung der Schranken geht es darum, eine Spielpaarung zu finden, welche garantiert, 
-	 * dass mindestens eine Mannschaft mehr (bei maxTP) oder weniger (bei minTP) Punkte bekommt, als die aktuelle Mannschaft. 
-	 * Zuerst werden dafür temporäre Schranken tmpMaxTP und tmpMinTP erstellt, welche den Wert von maxTP bzw. minTP bekommen. 
-	 * Sobald dann eine der Bedingungen aus Tabelle 3 zutrifft, wird tmpMaxTP inkrementiert oder tmpMinTP dekrementiert. Dabei ist zu 
-	 * beachten, dass wenn einmal eine Bedingung für eine Mannschaft zutraf, diese Mannschaft danach nicht weiter betrachtet wird.
+	 * Bei der Variante A zur Verbesserung der Schranken geht es darum, eine
+	 * Spielpaarung zu finden, welche garantiert, dass mindestens eine
+	 * Mannschaft mehr (bei maxTP) oder weniger (bei minTP) Punkte bekommt, als
+	 * die aktuelle Mannschaft. Zuerst werden dafür temporäre Schranken tmpMaxTP
+	 * und tmpMinTP erstellt, welche den Wert von maxTP bzw. minTP bekommen.
+	 * Sobald dann eine der Bedingungen aus Tabelle 3 zutrifft, wird tmpMaxTP
+	 * inkrementiert oder tmpMinTP dekrementiert. Dabei ist zu beachten, dass
+	 * wenn einmal eine Bedingung für eine Mannschaft zutraf, diese Mannschaft
+	 * danach nicht weiter betrachtet wird.
 	 * 
 	 * Tabellenrechner zur Vorhersage von Tabellenplätzen im Sport, S.15
 	 */
@@ -411,23 +420,26 @@ public class AlgorithmusMin extends Algorithmus {
 	}
 
 	/**
-	 * Hier geht es darum, zu berechnen, wie viele Siege und unentschieden mindestens benötigt werden, 
-	 * damit alle Mannschaften aus der Menge M die aktuelle Mannschaft überholen. Dafür wird die Differenz (diff) 
-	 * zwischen der aktuellen Punktzahl der aktuellen Mannschaft P(x) und der Punkte der Mannschaft P(m) gebildet.
-	 *  𝑑𝑖𝑓𝑓=𝑃(𝑥)−𝑃(𝑚) 
-	 * Aus dieser Differenz wird geprüft, wie viele Siege und unentschieden die Mannschaft m benötigen würde,
-	 * um mindestens gleich viele Punkte wie P(x) zu bekommen.
+	 * Hier geht es darum, zu berechnen, wie viele Siege und unentschieden
+	 * mindestens benötigt werden, damit alle Mannschaften aus der Menge M die
+	 * aktuelle Mannschaft überholen. Dafür wird die Differenz (diff) zwischen
+	 * der aktuellen Punktzahl der aktuellen Mannschaft P(x) und der Punkte der
+	 * Mannschaft P(m) gebildet. 𝑑𝑖𝑓𝑓=𝑃(𝑥)−𝑃(𝑚) Aus dieser Differenz
+	 * wird geprüft, wie viele Siege und unentschieden die Mannschaft m
+	 * benötigen würde, um mindestens gleich viele Punkte wie P(x) zu bekommen.
 	 * 
-	 * Beispiel: 
-	 * Wird angenommen, dass noch 64 Spiele offen sind, dann könnte die Summe aller gezählten Siege und Unentschieden 
-	 * bei 74 Siegen und 3 Unentschieden liegen. Weiter gilt, dass zwei Unentschieden wie ein Sieg gewertet werden. 
-	 * Somit gilt, dass ein Unentschieden einen Wert von 0,5 hat. Summiert man dann die Siege 
-	 * und Unentschieden auf, so kommt man auf einen Wert von 75,5. Dieser Wert wird als Spielsumme (S) bezeichnet.
-	 *  𝑆=|𝑆𝑖𝑒𝑔𝑒|+|𝑈𝑛𝑒𝑛𝑡𝑠𝑐ℎ𝑖𝑒𝑑𝑒𝑛|2 
-	 *  Das heißt, dass man mindestens 75,5 Spiele benötigt, selbst wenn die Spielpaarungen ideal ausgerichtet wären. 
-	 *  Da es aber nur 64 offene Spiele gibt, kann minTP gar nicht erreicht werden.
-	 *  
-	 *  Tabellenrechner zur Vorhersage von Tabellenplätzen im Sport, S.16f.
+	 * Beispiel: Wird angenommen, dass noch 64 Spiele offen sind, dann könnte
+	 * die Summe aller gezählten Siege und Unentschieden bei 74 Siegen und 3
+	 * Unentschieden liegen. Weiter gilt, dass zwei Unentschieden wie ein Sieg
+	 * gewertet werden. Somit gilt, dass ein Unentschieden einen Wert von 0,5
+	 * hat. Summiert man dann die Siege und Unentschieden auf, so kommt man auf
+	 * einen Wert von 75,5. Dieser Wert wird als Spielsumme (S) bezeichnet.
+	 * 𝑆=|𝑆𝑖𝑒𝑔𝑒|+|𝑈𝑛𝑒𝑛𝑡𝑠𝑐ℎ𝑖𝑒𝑑𝑒𝑛|2 Das heißt, dass man
+	 * mindestens 75,5 Spiele benötigt, selbst wenn die Spielpaarungen ideal
+	 * ausgerichtet wären. Da es aber nur 64 offene Spiele gibt, kann minTP gar
+	 * nicht erreicht werden.
+	 * 
+	 * Tabellenrechner zur Vorhersage von Tabellenplätzen im Sport, S.16f.
 	 */
 	private int ermittelVerbessertenMinTP_VarianteB(ArrayList<Team> l1, ArrayList<Team> l2, Team[] t) {
 		int px = this.team.getPunkte();
@@ -646,7 +658,8 @@ public class AlgorithmusMin extends Algorithmus {
 	}
 
 	@Override
-	void setzeNeueMengenForBnB(Team[] tmpVorherigeTabelle,ArrayList<Team> tmpAusstehendeSpieleHeim, ArrayList<Team> tmpAusstehendeSpieleAusw) {
+	void setzeNeueMengenForBnB(Team[] tmpVorherigeTabelle, ArrayList<Team> tmpAusstehendeSpieleHeim,
+			ArrayList<Team> tmpAusstehendeSpieleAusw) {
 		int anzahlU = this.U.size();
 		erzeugeMengenTabelle(tmpVorherigeTabelle, tmpAusstehendeSpieleHeim, tmpAusstehendeSpieleAusw);
 		if (anzahlU < this.U.size()) {

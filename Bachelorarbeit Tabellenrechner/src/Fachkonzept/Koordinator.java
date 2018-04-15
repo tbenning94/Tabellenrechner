@@ -119,11 +119,11 @@ public class Koordinator {
 	public void setLiga(String sportart, int saison,int bisSpieltag) throws IOException {
 		switch (sportart) {
 			case "1. Fuﬂballbundesliga":
-				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball(1), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball("bl1"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
 				this.aktiveGruppenLiga=liga;
 				break;
 			case "2. Fuﬂballbundesliga":
-				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball(2), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball("bl2"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
 				this.aktiveGruppenLiga=liga;
 				break;
 		}
@@ -134,22 +134,33 @@ public class Koordinator {
 		}	
 	}
 	
-	public void setLiga(Liga liga) throws IOException
-	{
+	public void setLiga(String sportart, int saison,int bisSpieltag,String url) throws IOException {
+		ISportart sport;
+		switch (sportart) {
+			case "1. Fuﬂballbundesliga":
+				if(url==null){
+					sport= new Fuﬂball("bl1");
+				}else{
+					sport= new Fuﬂball(url,"bl1");
+				}
+				this.liga = new Liga("Fuﬂball", saison, sport, new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+				this.aktiveGruppenLiga=liga;
+				break;
+			case "2. Fuﬂballbundesliga":
+				if(url==null){
+					sport= new Fuﬂball("bl2");
+				}else{
+					sport= new Fuﬂball(url,"bl2");
+				}
+				this.liga = new Liga("Fuﬂball", saison, sport, new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+				this.aktiveGruppenLiga=liga;
+				break;
+		}
 		
-		new Zaehlweise(liga.getSportart().getZaehlweise());
-		this.liga=liga;
-		this.aktiveGruppenLiga=liga;
-		if(this.liga.getAustragungsart() instanceof Meisterschaft)
+		if(this.liga!=null)
 		{
-			liga.getAustragungsart().setComparatorChain(liga.getAustragungsart().getComparatorNr());
 			erstelleTeams();
 		}	
-		if(liga.getAustragungsart() instanceof Europameisterschaft)
-		{
-			liga.getAustragungsart().setComparatorChain(liga.getAustragungsart().getComparatorNr());
-			erstelleTeamsGruppen();
-		}
 	}
 	
 	public void setzeAktiveLiga(Liga liga)
@@ -185,9 +196,9 @@ public class Koordinator {
 	 */
 	private void erstelleTeams() throws IOException {
 
-		Sportart sportart=liga.getSportart();
-		String lokalURL = sportart.getLokalURL()+this.liga.getLiga()+"/";
-		daten = new DatenzugriffJSON(sportart.getURL(), lokalURL);
+		ISportart sportart=liga.getSportart();
+		//String lokalURL = sportart.getLokalURL()+this.liga.getLiga()+"/";
+		daten = new DatenzugriffJSON(sportart.getURL());
 
 
 		liga.addTeams(daten.ermittelTeams(liga.getJahr()));
@@ -201,8 +212,8 @@ public class Koordinator {
 	}
 	
 	private void erstelleTeamsGruppen() throws IOException {
-		Sportart sportart=liga.getSportart();
-		daten = new DatenzugriffJSON(sportart.getURL(), sportart.getLokalURL()+k.getLiga().getLiga()+"/");
+		ISportart sportart=liga.getSportart();
+		daten = new DatenzugriffJSON(sportart.getURL());//, sportart.getLokalURL()+k.getLiga().getLiga()+"/");
 		String gruppe = null;
 
 		for(int i=1; i<=((Gruppenphase) liga.getAustragungsart()).getAnzahlGruppen();i++)

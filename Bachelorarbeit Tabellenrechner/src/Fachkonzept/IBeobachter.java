@@ -7,7 +7,7 @@ import Fachkonzept.Team;
  * @author T.Benning
  *
  */
-public interface Beobachter {
+public interface IBeobachter {
 	/**
 	 * eine Aktualisierung die stattfindet sobald die Berechnung beendet ist
 	 * @param t das Team welches informationen für die aktualisierung beinhaltet

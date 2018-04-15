@@ -84,7 +84,7 @@ public class resultValidationOfBnB {
 		k=Koordinator.getKoordinator();
 		int bisTag=28;
 		for(int i=0; 34-(bisTag+i)>0; i++){
-			k.setLiga("1. Fuﬂballbundesliga", 2015, bisTag+i);
+			k.setLiga("1. Fuﬂballbundesliga", 2015, bisTag+i,getLokalURL());
 			for(Team team:k.getAktiveLiga().getTeams()){
 				if(mitInitLoesung){
 					k.getAlgorithmus().testMitInitLoesung(team);					
@@ -142,5 +142,11 @@ public class resultValidationOfBnB {
 	private void proof(int i,Team team,Object[] max,Object[] min){
 		assertEquals("MAX "+team.getName()+" tag: "+(28+i), max[i], team.getMaxPlatzSpieltag().getLast());
 		assertEquals("MIN "+team.getName()+" tag: "+(28+i), min[i], team.getMinPlatzSpieltag().getLast());
+	}
+	
+	private String getLokalURL() {
+		String path=System.getProperty("user.dir")+"/"+"src/Ergebnisse/Fuﬂball/";
+		String lokalUrl="file:///"+path;
+		return lokalUrl;
 	}
 }

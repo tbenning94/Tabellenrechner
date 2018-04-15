@@ -5,7 +5,7 @@ import java.io.IOException;
 import Fachkonzept.Koordinator;
 import Fachkonzept.Meisterschaft;
 import Fachkonzept.Team;
-import Fachkonzept.Beobachter;
+import Fachkonzept.IBeobachter;
 import Fachkonzept.Europameisterschaft;
 import Fachkonzept.Gruppenphase;
 import javafx.application.Application;
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  * @author T.Benning
  *
  */
-public class ControllerGUI extends Application implements Beobachter {
+public class ControllerGUI extends Application implements IBeobachter {
 	@FXML
 	private MenuBar oben;
 	@FXML
