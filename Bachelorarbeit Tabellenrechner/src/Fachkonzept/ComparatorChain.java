@@ -34,7 +34,7 @@ public class ComparatorChain<E> implements Comparator<E> {
 	public final static int CC_FUßBALL_MEISTERSCHAFT = 2 ;
 	public final static int CC_HANDBALL_MEISTERSCHAFT = 3;
 	public final static int CC_HANDBALL_EM = 3; //TODO
-	public static Team t;
+	public static Team aktuellesTeam;
 
 	public static int gruppe;
 	
@@ -100,12 +100,12 @@ public class ComparatorChain<E> implements Comparator<E> {
     public final static Comparator<Team> MAX_COMPARATOR = new Comparator<Team>() {
 		@Override
 		public int compare(Team t1, Team t2) {
-			if(t==null)return 1;
-			if(t.getName().equals(t1.getName()))
+			if(aktuellesTeam==null)return 1;
+			if(aktuellesTeam.getName().equals(t1.getName()))
 			{
 				return -1;
 			}else{
-				if(t.getName().equals(t2.getName()))
+				if(aktuellesTeam.getName().equals(t2.getName()))
 				{
 					return 1;
 				}
@@ -117,12 +117,12 @@ public class ComparatorChain<E> implements Comparator<E> {
     public final static Comparator<Team> MIN_COMPARATOR = new Comparator<Team>() {
 		@Override
 		public int compare(Team t1, Team t2) {
-			if(t==null)return 1;
-			if(t.getName().equals(t1.getName()))
+			if(aktuellesTeam==null)return 1;
+			if(aktuellesTeam.getName().equals(t1.getName()))
 			{
 				return 1;
 			}else{
-				if(t.getName().equals(t2.getName()))
+				if(aktuellesTeam.getName().equals(t2.getName()))
 				{
 					return -1;
 				}

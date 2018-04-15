@@ -206,7 +206,7 @@ public class Koordinator {
 		liga.addAusgetrageneSpiele(
 				daten.berechneTabelle(liga.getJahr(), ((Meisterschaft) liga.getAustragungsart()).getGespieltBisTag(), liga.getTeams()));
 
-		liga.ermittelPlatzierung(liga.getTeams(), Liga.SORTIERUNG_NORMAL,null);
+		Liga.ermittelPlatzierungNormal(liga.getTeams(), liga.getAustragungsart());
 		liga.addAusstehendeSpiele(
 				daten.ermittelAusstehendeSpiele(liga.getJahr(), ((Meisterschaft) liga.getAustragungsart()).getGespieltBisTag() + 1, (liga.getTeams().length-1)*2));
 	}
@@ -245,7 +245,7 @@ public class Koordinator {
 			tmp.addAusgetrageneSpiele(
 					daten.berechneTabelle(tmp.getJahr(),  tmp.getAustragungsart().getGespieltBisTag(), tmp.getTeams(),gruppe));
 
-			tmp.ermittelPlatzierung(tmp.getTeams(), Liga.SORTIERUNG_NORMAL,null);
+			Liga.ermittelPlatzierungNormal(tmp.getTeams(), tmp.getAustragungsart());
 			tmp.addAusstehendeSpiele(
 					daten.ermittelAusstehendeSpiele(tmp.getJahr(), tmp.getAustragungsart().getGespieltBisTag() + 1, (tmp.getTeams().length-1)*2,gruppe));
 			((Gruppenphase) liga.getAustragungsart()).getGruppen()[i-1]=tmp;

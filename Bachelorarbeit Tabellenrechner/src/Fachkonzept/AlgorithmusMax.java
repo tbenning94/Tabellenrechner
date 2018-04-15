@@ -11,7 +11,7 @@ public class AlgorithmusMax extends Algorithmus {
 	}
 
 	public void berechneMAX(int tag, boolean test,int durchlauf) {
-		this.liga.ermittelPlatzierung(this.k.getAktiveLiga().getTeams(), Liga.SORTIERUNG_MAX, this.team);
+		Liga.ermittelPlatzierungMaxOderMin(this.k.getAktiveLiga().getTeams(), Liga.SORTIERUNG_MAX, this.team);
 		this.max = this.team.getPlatzierung();
 		this.maxPZ = (this.team.getPunkte() + Zaehlweise.PUNKTE_S * (tag + 1));
 		this.minPZ = this.team.getPunkte();
@@ -190,7 +190,7 @@ public class AlgorithmusMax extends Algorithmus {
 
 	@Override
 	protected void setzeMinMaxTP(Team[] tmpTeam) {
-		this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
+		Liga.ermittelPlatzierungMaxOderMin(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
 		this.minTP = this.team.getPlatzierung();
 		this.maxTP = 1;
 		for (int i = 0; i < tmpTeam.length; i++) {

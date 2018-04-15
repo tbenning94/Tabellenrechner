@@ -8,9 +8,8 @@ import java.util.LinkedList;
  * @author T.Benning
  *
  */
-public class Team implements Serializable
+public class Team
 {
-	private static final long serialVersionUID = 1L;
 	private final String name;
 	private int punkte;
 	private int tore;

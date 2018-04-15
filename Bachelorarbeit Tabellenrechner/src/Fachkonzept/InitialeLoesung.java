@@ -709,9 +709,9 @@ public class InitialeLoesung {
 
 	private int ermittelPlatzierungAndGetResult(Team[] tmpTeam, boolean isMaxCalculation) {
 		if (isMaxCalculation) {
-			this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
+			Liga.ermittelPlatzierungMaxOderMin(tmpTeam, Liga.SORTIERUNG_MAX, this.team);
 		} else {
-			this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MIN, this.team);
+			Liga.ermittelPlatzierungMaxOderMin(tmpTeam, Liga.SORTIERUNG_MIN, this.team);
 		}
 		for (int i = 0; i < tmpTeam.length; i++) {
 			if (tmpTeam[i].getName().equals(this.team.getName())) {

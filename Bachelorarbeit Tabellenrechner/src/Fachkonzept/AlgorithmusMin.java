@@ -19,7 +19,7 @@ public class AlgorithmusMin extends Algorithmus {
 
 	public void berechneMIN(int tag, boolean test, int durchlauf) {
 
-		this.liga.ermittelPlatzierung(this.k.getAktiveLiga().getTeams(), Liga.SORTIERUNG_MIN, this.team);
+		Liga.ermittelPlatzierungMaxOderMin(this.k.getAktiveLiga().getTeams(), Liga.SORTIERUNG_MIN, this.team);
 		this.min = this.team.getPlatzierung();
 		this.maxPZ = this.team.getPunkte();
 		this.minPZ = (this.team.getPunkte() - Zaehlweise.PUNKTE_S * (tag + 1));
@@ -277,7 +277,7 @@ public class AlgorithmusMin extends Algorithmus {
 	@Override
 	protected void setzeMinMaxTP(Team[] tmpTeam) {
 
-		this.liga.ermittelPlatzierung(tmpTeam, Liga.SORTIERUNG_MIN, this.team);
+		Liga.ermittelPlatzierungMaxOderMin(tmpTeam, Liga.SORTIERUNG_MIN, this.team);
 
 		this.maxTP = this.team.getPlatzierung();
 		this.minTP = tmpTeam.length;
@@ -552,7 +552,7 @@ public class AlgorithmusMin extends Algorithmus {
 		}
 		double wert = siege + unentschieden / 2.0D;
 		while (wert > offeneSpiele) {
-			this.liga.ermittelPlatzierung(t1, 3, this.team);
+			Liga.ermittelPlatzierungMaxOderMin(t1, Liga.SORTIERUNG_MIN, this.team);
 			erzeugeMengen(t1, heim, ausw);
 			Team m = (Team) this.M.get(this.M.size() - 1);
 			for (int j = heim.size() - 1; j >= 0; j--) {
@@ -592,7 +592,7 @@ public class AlgorithmusMin extends Algorithmus {
 			}
 			wert = siege + unentschieden / 2.0D;
 		}
-		this.liga.ermittelPlatzierung(t1, 3, this.team);
+		Liga.ermittelPlatzierungMaxOderMin(t1, Liga.SORTIERUNG_MIN, this.team);
 
 		this.test1 = heim;
 		this.test2 = ausw;

@@ -33,7 +33,7 @@ public class AlgorithmusConsoleAusgabe {
 
 	  private void ausgabeTabelle(Team[] t0,boolean isMaxCalculation)
 	  {
-	    ComparatorChain.t = this.team;
+	    ComparatorChain.aktuellesTeam = this.team;
 	    if (isMaxCalculation) {
 	      this.liga.ermittelPlatzierung(t0, 2, this.team);
 	    } else {
