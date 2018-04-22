@@ -20,6 +20,9 @@ public class Liga {
 	// Flags die angeben wie Sortiert werden soll
 	public static final int SORTIERUNG_MAX = 1;
 	public static final int SORTIERUNG_MIN = 2;
+	
+	public static final String ersteFuﬂballBundesliga="1. Fuﬂballbundesliga";
+	public static final String zweiteFuﬂballBundesliga="2. Fuﬂballbundesliga";
 
 	public Liga(String liga, int jahr, ISportart sportart, Austragungsart austragungsart) {
 		this.alleSpielPaarungen = new LinkedList<Team>();

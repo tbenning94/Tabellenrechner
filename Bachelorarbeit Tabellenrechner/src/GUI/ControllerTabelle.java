@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import Fachkonzept.Koordinator;
+import Fachkonzept.Liga;
 import Fachkonzept.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +47,7 @@ public class ControllerTabelle {
 
 	private void setColumnsStyle()
 	{
-		if(k.getAktiveLiga().getLiga().equals("Fuﬂball"))
+		if(k.getAktiveLiga().getLiga().equals(Liga.ersteFuﬂballBundesliga))
         {
 		   	 vBoxLegende.getChildren().add(new Label("Legende: "));
 		   	 Label l5= new Label("Champions League Teilnahme");		   
@@ -62,6 +63,22 @@ public class ControllerTabelle {
 		   	 vBoxLegende.getChildren().add(l5);
 		   	 vBoxLegende.getChildren().add(l4);
 		   	 vBoxLegende.getChildren().add(l3);
+		   	 vBoxLegende.getChildren().add(l1);
+		   	 vBoxLegende.getChildren().add(l2);
+        }
+		if(k.getAktiveLiga().getLiga().equals(Liga.zweiteFuﬂballBundesliga))
+        {
+		   	 vBoxLegende.getChildren().add(new Label("Legende: "));
+		   	 Label l5= new Label("Aufstiegsplatz");		   
+		   	 l5.setStyle("-fx-background-color: limegreen;");
+		   	 Label l4= new Label("Aufstieg Relegation");		   
+		   	 l4.setStyle("-fx-background-color: lime;");		   	 
+		   	 Label l1= new Label("Abstieg Relegation");		   
+		   	 l1.setStyle("-fx-background-color: khaki;");
+		   	 Label l2= new Label("Abstiegsplatz");		   
+		   	 l2.setStyle("-fx-background-color: salmon;");
+		   	 vBoxLegende.getChildren().add(l5);
+		   	 vBoxLegende.getChildren().add(l4);
 		   	 vBoxLegende.getChildren().add(l1);
 		   	 vBoxLegende.getChildren().add(l2);
         }
@@ -91,7 +108,7 @@ public class ControllerTabelle {
 		            	setText(item+"");
 		            	 setTextFill(Color.BLACK);
 		                 setStyle( "-fx-alignment: center");
-		                 if(k.getAktiveLiga().getLiga().equals("Fuﬂball"))
+		                 if(k.getAktiveLiga().getLiga().equals(Liga.ersteFuﬂballBundesliga))
 		                 {
 		                	 switch(item)
 			                 {
@@ -136,6 +153,40 @@ public class ControllerTabelle {
 				                 		break;
 			                 }
 		                 }
+		                 if(k.getAktiveLiga().getLiga().equals(Liga.zweiteFuﬂballBundesliga))
+		                 {
+		                	 switch(item)
+			                 {
+				                 case 1:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: limegreen;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 2:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: limegreen;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 3:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: lime;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 16:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: khaki;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 17:setTextFill(Color.WHITE);
+				                 		setStyle("-fx-background-color: salmon;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 18:setTextFill(Color.WHITE);
+				                 		setStyle("-fx-background-color: salmon;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 default:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-alignment: center");
+				                 		break;
+			                 }
+		                 }
+
 		                 if(k.getAktiveLiga().getLiga().equals("Handball"))
 		                 {
 		                	 switch(item)

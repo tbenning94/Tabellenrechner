@@ -118,12 +118,12 @@ public class Koordinator {
 	 */
 	public void setLiga(String sportart, int saison,int bisSpieltag) throws IOException {
 		switch (sportart) {
-			case "1. Fuﬂballbundesliga":
-				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball("bl1"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+			case Liga.ersteFuﬂballBundesliga:
+				this.liga = new Liga(sportart, saison, new Fuﬂball("bl1"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
 				this.aktiveGruppenLiga=liga;
 				break;
-			case "2. Fuﬂballbundesliga":
-				this.liga = new Liga("Fuﬂball", saison, new Fuﬂball("bl2"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
+			case Liga.zweiteFuﬂballBundesliga:
+				this.liga = new Liga(sportart, saison, new Fuﬂball("bl2"), new Meisterschaft(bisSpieltag,ComparatorChain.CC_FUﬂBALL_MEISTERSCHAFT));
 				this.aktiveGruppenLiga=liga;
 				break;
 		}

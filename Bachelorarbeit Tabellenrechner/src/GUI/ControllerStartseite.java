@@ -1,14 +1,7 @@
 package GUI;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.util.LinkedList;
 import java.util.Optional;
 
 import Datenhaltung.DatenzugriffJSON;
@@ -43,12 +36,10 @@ public class ControllerStartseite{
 	private ObservableList<Integer> tag;
 	private ObservableList<String> sport;
 	private ObservableList<Integer> jahr;
-	private static File fileEigeneSporarten=new File("eigeneSportarten.ser");
 	
 	public ControllerStartseite(ControllerGUI cGUI)
 	{
-		this.cGUI=cGUI;
-
+		this.cGUI=cGUI;	
 	}
 	
 	@FXML
@@ -232,12 +223,12 @@ public class ControllerStartseite{
     		   sportarten.getSelectionModel().getSelectedItem().equals("2. Fuﬂballbundesliga"))
     		{
     			if(sportarten.getSelectionModel().getSelectedItem().equals("1. Fuﬂballbundesliga")){
-        			k.setLiga("1. Fuﬂballbundesliga",
+        			k.setLiga(Liga.ersteFuﬂballBundesliga,
     						(int) saison.getSelectionModel().getSelectedItem(),
     						(int) spieltag.getSelectionModel().getSelectedItem());
     			}
     			if(sportarten.getSelectionModel().getSelectedItem().equals("2. Fuﬂballbundesliga")){
-        			k.setLiga("2. Fuﬂballbundesliga",
+        			k.setLiga(Liga.zweiteFuﬂballBundesliga,
     						(int) saison.getSelectionModel().getSelectedItem(),
     						(int) spieltag.getSelectionModel().getSelectedItem());
     			}
