@@ -158,7 +158,7 @@ public class AlgorithmusMax extends Algorithmus {
 		if (this.ausstehendCpy[x][i].getName().equals(this.team.getName())) {
 			if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
 				this.maxPZ -= Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
-				this.minPZ += Zaehlweise.PUNKTE_U;
+				this.minPZ -= Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
 			}
 			if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == NIEDERLAGE) {
 				this.maxPZ -= Zaehlweise.PUNKTE_S;
@@ -173,7 +173,7 @@ public class AlgorithmusMax extends Algorithmus {
 			}
 			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
 				this.maxPZ -= Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
-				this.minPZ += Zaehlweise.PUNKTE_U;
+				this.minPZ -= Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
 			}
 		}
 		//Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt

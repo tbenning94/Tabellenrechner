@@ -42,9 +42,9 @@ public class AlgorithmusMin extends Algorithmus {
 
 		erzeugeMengenTabelle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
 
-		test(tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
-		tmpAusstehendeNamenHeim = this.test1;
-		tmpAusstehendeNamenAusw = this.test2;
+//		test(tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw, tmpTabelle);
+//		tmpAusstehendeNamenHeim = this.test1;
+//		tmpAusstehendeNamenAusw = this.test2;
 
 		if (!test) {
 			erstelleInitialeLoesungAlle(tmpTabelle, tmpAusstehendeNamenHeim, tmpAusstehendeNamenAusw);
@@ -162,8 +162,8 @@ public class AlgorithmusMin extends Algorithmus {
 				this.maxPZ += Zaehlweise.PUNKTE_S;
 			}
 			if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
-				this.minPZ += Zaehlweise.PUNKTE_U;
-				this.maxPZ += Zaehlweise.PUNKTE_U;
+				this.minPZ += Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
+				this.maxPZ += Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
 			}
 		} else if (this.ausstehendCpy[x][(i + 1)].getName().equals(this.team.getName())) {
 			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == SIEG) {
@@ -171,8 +171,8 @@ public class AlgorithmusMin extends Algorithmus {
 				this.maxPZ += Zaehlweise.PUNKTE_S;
 			}
 			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
-				this.minPZ += Zaehlweise.PUNKTE_U;
-				this.maxPZ += Zaehlweise.PUNKTE_U;
+				this.maxPZ += Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
+				this.maxPZ += Zaehlweise.PUNKTE_S - Zaehlweise.PUNKTE_U;
 			}
 		}
 		// Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt
