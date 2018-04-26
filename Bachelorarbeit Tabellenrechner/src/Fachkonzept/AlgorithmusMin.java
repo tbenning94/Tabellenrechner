@@ -154,37 +154,6 @@ public class AlgorithmusMin extends Algorithmus {
 		return moeglichkeitGefunden;
 	}
 
-	@Override
-	protected void pruefeSchrankeWennGetippt(int x, int i) {
-		if (this.ausstehendCpy[x][i].getName().equals(this.team.getName())) {
-			if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == SIEG) {
-				this.minPZ += Zaehlweise.PUNKTE_S;
-				this.maxPZ += Zaehlweise.PUNKTE_S;
-			}
-			if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
-				this.minPZ += Zaehlweise.PUNKTE_U;
-				this.maxPZ += Zaehlweise.PUNKTE_U;
-			}
-		} else if (this.ausstehendCpy[x][(i + 1)].getName().equals(this.team.getName())) {
-			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == SIEG) {
-				this.minPZ += Zaehlweise.PUNKTE_S;
-				this.maxPZ += Zaehlweise.PUNKTE_S;
-			}
-			if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
-				this.maxPZ += Zaehlweise.PUNKTE_U;
-				this.minPZ += Zaehlweise.PUNKTE_U;
-			}
-		}
-		// Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt
-		int ergebnisHeim = (Integer) tipps.get(i + x * this.anzahlTeams);
-		int ergebnisAusw = (Integer) tipps.get(i + 1 + x * this.anzahlTeams);
-		setzeMoeglichkeiten(ergebnisHeim, ergebnisAusw);
-
-		// die grenzen ändern sich sobald sich die punktzahl der aktiven
-		// Mannschaft verändert
-		this.unterGrenze = this.minPZ;
-		this.oberGrenze = this.maxPZ;
-	}
 
 	private void erstelleInitialeLoesungVarianteMIN_I_Nachbesserung(Team[] t, int tag, int durchlauf) {
 		int durchgang = 0;
@@ -703,5 +672,34 @@ public class AlgorithmusMin extends Algorithmus {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	void pruefeTippsAufAktivesTeam(int durchlauf) {
+		for (int x = 0; x < this.anzahlUebrigerSpieltage - durchlauf; x++) {
+			// für jede Mannschaft (überspringe jede zweite da zwei immer
+			// gegeneinander spielen)
+			for (int i = 0; i < this.ausstehendCpy[x].length; i += 2) {
+				if (this.ausstehendCpy[x][i].getName().equals(this.team.getName())) {
+					if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == SIEG) {
+						this.minPZ += Zaehlweise.PUNKTE_S;
+						this.maxPZ += Zaehlweise.PUNKTE_S;
+					}
+					if (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
+						this.minPZ += Zaehlweise.PUNKTE_U;
+						this.maxPZ += Zaehlweise.PUNKTE_U;
+					}
+				} else if (this.ausstehendCpy[x][(i + 1)].getName().equals(this.team.getName())) {
+					if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == SIEG) {
+						this.minPZ += Zaehlweise.PUNKTE_S;
+						this.maxPZ += Zaehlweise.PUNKTE_S;
+					}
+					if (((Integer) tipps.get(i + 1 + x * this.anzahlTeams)).intValue() == UNENTSCHIEDEN) {
+						this.maxPZ += Zaehlweise.PUNKTE_U;
+						this.minPZ += Zaehlweise.PUNKTE_U;
+					}
+				}
+			}
+		}
 	}
 }

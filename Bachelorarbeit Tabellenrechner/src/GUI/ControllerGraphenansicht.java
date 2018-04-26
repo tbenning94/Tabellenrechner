@@ -7,6 +7,7 @@ import java.util.List;
 
 import Fachkonzept.BranchAndBound;
 import Fachkonzept.Koordinator;
+import Fachkonzept.Liga;
 import Fachkonzept.Team;
 import Fachkonzept.Zaehlweise;
 import Fachkonzept.Algorithmus;
@@ -161,7 +162,7 @@ public class ControllerGraphenansicht implements IBeobachter {
 		            	setText(item+"");
 		            	 setTextFill(Color.BLACK);
 		                 setStyle( "-fx-alignment: center");
-		                 if(k.getAktiveLiga().getLiga().equals("Fuﬂball"))
+		                 if(k.getAktiveLiga().getLiga().equals(Liga.ersteFuﬂballBundesliga))
 		                 {
 		                	 switch(item)
 			                 {
@@ -187,6 +188,39 @@ public class ControllerGraphenansicht implements IBeobachter {
 				                 		break;
 				                 case 6:setTextFill(Color.WHITE);
 				                 		setStyle("-fx-background-color: DeepSkyBlue;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 16:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: khaki;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 17:setTextFill(Color.WHITE);
+				                 		setStyle("-fx-background-color: salmon;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 18:setTextFill(Color.WHITE);
+				                 		setStyle("-fx-background-color: salmon;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 default:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-alignment: center");
+				                 		break;
+			                 }
+		                 }
+		                 if(k.getAktiveLiga().getLiga().equals(Liga.zweiteFuﬂballBundesliga))
+		                 {
+		                	 switch(item)
+			                 {
+				                 case 1:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: limegreen;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 2:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: limegreen;"
+				                 				+ "-fx-alignment: center");
+				                 		break;
+				                 case 3:setTextFill(Color.BLACK);
+				                 		setStyle("-fx-background-color: lime;"
 				                 				+ "-fx-alignment: center");
 				                 		break;
 				                 case 16:setTextFill(Color.BLACK);

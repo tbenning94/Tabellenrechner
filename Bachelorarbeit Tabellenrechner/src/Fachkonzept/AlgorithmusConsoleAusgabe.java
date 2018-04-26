@@ -155,11 +155,6 @@ public class AlgorithmusConsoleAusgabe extends Algorithmus{
 		return false;
 	}
 
-	@Override
-	void pruefeSchrankeWennGetippt(int offenerSpieltagIndex, int teamIndex) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	void setzeMinMaxTP(Team[] tmpTeam) {
@@ -196,6 +191,12 @@ public class AlgorithmusConsoleAusgabe extends Algorithmus{
 	boolean pruefeAbbruchbedingung2() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	void pruefeTippsAufAktivesTeam(int durchlauf) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

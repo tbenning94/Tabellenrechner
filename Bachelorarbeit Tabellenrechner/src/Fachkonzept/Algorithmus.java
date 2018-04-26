@@ -65,7 +65,7 @@ public abstract class Algorithmus {
 	abstract void erzeugeInitialeMengen(Team[] tmpTeam);
 	abstract void erstelleInitialeLoesungAlle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2);
 	abstract boolean moeglichkeitGefunden(int offenerSpieltagIndex, int teamIndex); 
-	abstract void pruefeSchrankeWennGetippt(int offenerSpieltagIndex, int teamIndex);
+	abstract void pruefeTippsAufAktivesTeam(int durchlauf);
 	abstract void setzeMinMaxTP(Team[] tmpTeam);
 	abstract void erzeugeMengenTabelle(Team[] t, ArrayList<Team> l1, ArrayList<Team> l2);
 	abstract void erzeugeMengen(Team[] tmpTeam, ArrayList<Team> l1, ArrayList<Team> l2);
@@ -125,14 +125,25 @@ public abstract class Algorithmus {
 		this.moeglichkeiten = new ArrayList<Integer>();
 		this.ausstehendeNamenHeim = new ArrayList<Team>();
 		this.ausstehendeNamenAusw = new ArrayList<Team>();
-
+		
+		if(!tipps.isEmpty()){
+			pruefeTippsAufAktivesTeam(durchlauf);
+			// die grenzen ändern sich sobald sich die punktzahl der aktiven
+			// Mannschaft verändert
+			this.unterGrenze = this.minPZ;
+			this.oberGrenze = this.maxPZ;
+		}
+		
 		//Gehe alle offenen Spieltage durch
 		for (int x = 0; x < this.anzahlUebrigerSpieltage - durchlauf; x++) {
 			//für jede Mannschaft (überspringe jede zweite da zwei immer gegeneinander spielen)
 			for (int i = 0; i < this.ausstehendCpy[x].length; i += 2) {
 				//wenn ein spiel getippt wurde
 				if ((!tipps.isEmpty()) && (((Integer) tipps.get(i + x * this.anzahlTeams)).intValue() != -1)) {
-					pruefeSchrankeWennGetippt(x, i);
+					// Das Ergebnis wurde getippt und daraus geholt und dieser wert gesetzt
+					int ergebnisHeim = (Integer) tipps.get(i + x * this.anzahlTeams);
+					int ergebnisAusw = (Integer) tipps.get(i + 1 + x * this.anzahlTeams);
+					setzeMoeglichkeiten(ergebnisHeim, ergebnisAusw);
 				} else if (!moeglichkeitGefunden(x,i)){
 					
 					//Das spiel kann noch nicht gesetzt werden
